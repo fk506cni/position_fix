@@ -3,5 +3,11 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/IJ"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_161/lib/Auto_Threshold-1.17.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_161/lib/bioformats_package.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_161/lib/fiji-lib-2.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_161/lib/formats-gpl.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_161/lib/loci_tools.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_161/lib/tools.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
