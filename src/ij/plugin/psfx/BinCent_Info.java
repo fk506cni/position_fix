@@ -35,7 +35,7 @@ public class BinCent_Info {
 		this.ref_size = parseSizeInts(this.imp_ref);
 		this.ref_cent = parseCentInts(this.imp_ref);
 		this.impAT_ref = parseATimg(this.imp_ref, this.agt.getRefATmt());
-		this.impAT_ref.show();
+		//this.impAT_ref.show();
 		this.a2r = new Anal2Result_(this.imp_ref);
 		this.ref_centM = a2r.getIntValsArray(Measurements.CENTER_OF_MASS);
 
@@ -47,7 +47,7 @@ public class BinCent_Info {
 		this.tag_size = parseSizeInts(this.imp_tag);
 		this.tag_cent = parseCentInts(this.imp_tag);
 		this.impAT_tag = parseATimg(this.imp_tag, this.agt.getTagATmt());
-		this.impAT_tag.show();
+		//this.impAT_tag.show();
 		this.a2r = new Anal2Result_(this.imp_tag);
 		this.tag_centM = a2r.getIntValsArray(Measurements.CENTER_OF_MASS);
 
@@ -63,9 +63,9 @@ public class BinCent_Info {
 
 	private void parseImg() {
 		this.imp_ref = IJ.openImage(this.agt.getRefImg().getAbsolutePath());
-		this.imp_ref.show();
+		//this.imp_ref.show();
 		this.imp_tag = IJ.openImage(this.agt.getTagImg().getAbsolutePath());
-		this.imp_tag.show();
+		//this.imp_tag.show();
 	}
 
 	private ImagePlus parseATimg(ImagePlus original_imp, String ATmethod) {

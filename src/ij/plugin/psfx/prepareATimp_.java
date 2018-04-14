@@ -14,6 +14,7 @@ public class prepareATimp_{
 	private ImagePlus tagFXimp;
 	private BinCent_Info bc;
 	private Mscs_ ms =new Mscs_();
+	private int add_margin = 100;
 
 
 
@@ -21,13 +22,19 @@ public class prepareATimp_{
 		this.bc = bc;
 	}
 
+	public void setAddMargin(int add_margin) {
+		this.add_margin = add_margin;
+	}
+
 	public void FixImp() {
 		ImagePlus refFx = new ImagePlus();
 		int[] ref_size = bc.getRefSize();
 		int[] ref_cent = bc.getRefCent();
 		int[] ref_centM = bc.getRefCentM();
-		refFx = prepCentImp(this.bc.getBinRefImp(), ref_size, ref_cent, ref_centM);
-		refFx.show();
+		refFx = prepCentImp(this.bc.getBinRefImp(), ref_size, ref_cent, ref_centM).flatten();
+		IJ.run(refFx, "8-bit", "");
+		this.refFXimp = refFx;
+		//refFx.show();
 
 		ImagePlus tagFx = new ImagePlus();
 
@@ -36,8 +43,10 @@ public class prepareATimp_{
 		int[] tag_cent = bc.getTagCent();
 		int[] tag_centM = bc.getTagCentM();
 		//tagFx = prepCentImp(this.bc.getBinTagImp(), tag_size, tag_cent, tag_centM);
-		tagFx = putImpIn(this.bc.getBinTagImp(),tag_putinSize, tag_centM);
-		tagFx.show();
+		tagFx = putImpIn(this.bc.getBinTagImp(),tag_putinSize, tag_centM).flatten();
+		IJ.run(tagFx, "8-bit", "");
+		//tagFx.show();
+		this.tagFXimp = tagFx;
 		}
 
 	private ImagePlus prepCentImp(ImagePlus ATimp, int[] size, int[] cent, int[] centM){
@@ -79,11 +88,11 @@ public class prepareATimp_{
 			yPos = YL - (2 * centMy);
 		}
 
-		ImagePlus imp = IJ.createImage("", "8-bit white", FxL, FyL, 1);
-		imp.show();
+		ImagePlus imp = IJ.createImage("", "8-bit white", FxL+2*this.add_margin, FyL+2*this.add_margin, 1);
+		//imp.show();
 		int x=0, y=0;
-        x = xPos;
-        y = yPos;
+        x = xPos+this.add_margin;
+        y = yPos+this.add_margin;
         ImagePlus overlay = ATimp;
         Roi roi = new ImageRoi(x, y, overlay.getProcessor());
         Overlay overlayList = new Overlay();
