@@ -8,10 +8,10 @@ import ij.IJ;
 import ij.plugin.PlugIn;
 
 public class Args_Getter implements PlugIn{
-	private String ref_image_string;
-	private File ref_image_file;
-	private String tag_image_string;
-	private File tag_image_file;
+	private String ref_image_string="D:\\pf_test\\ref.png";
+	private File ref_image_file = new File("D:\\pf_test\\ref.png");
+	private String tag_image_string="D:\\pf_test\\tag.png";
+	private File tag_image_file = new File("D:\\pf_test\\tag.png");
 	private String[] AT_choice={"Default","Huang","Huang2","Intermodes","IsoData","Li","MaxEntropy",
   		  "Mean","MinError(I)","Minimum","Moments","Otsu","Percentile","RenyiEntropy",
   		  "Shanbhag","Triangle","Yen"};
@@ -22,7 +22,7 @@ public class Args_Getter implements PlugIn{
 	private int round_gradient;
 	private int searchL=1000;
 
-	private String output_dir;
+	private String output_dir="D:\\pf_test\\";
 	private File output_dir_asfile;
 	private String[] save_formats =  {"ZIP","PNG","Jpeg","Tiff","Gif"};
 	private String save_format = "ZIP";
@@ -58,6 +58,7 @@ public class Args_Getter implements PlugIn{
 		this.gdp = gdp;
 
 		parseArgs();
+		checkSysOs();
 	}
 
 	public void parseArgs() {
@@ -123,7 +124,15 @@ public class Args_Getter implements PlugIn{
 		//not impled...yet
 	}
 
-	public void checkSysOs()
+	public void checkSysOs() {
+		boolean result = "\\".equals(File.separator);
+		if(result) {
+			IJ.log("Detected System is Windows system.");
+		}else {
+			IJ.log("Detected System is Not Windows system.");
+		}
+		this.isWin = result;
+	}
 
 
 	public void run(String arg){
