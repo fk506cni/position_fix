@@ -20,6 +20,7 @@ public class Eval {
 	private int[] crop_y = {0,0};
 
 	private Mscs_ ms = new Mscs_();
+	private compare_Imps cim = new compare_Imps();
 
 
 	int x;
@@ -28,6 +29,7 @@ public class Eval {
 
 	public void setRef(ImagePlus ref) {
 		this.ref = ref;
+		this.cim.setRefImp(this.ref);
 	}
 
 	public void setTag(ImagePlus tag) {
@@ -46,7 +48,8 @@ public class Eval {
 
 	public double getEval(int x, int y, double theta) {
 		double score = 0.0;
-
+		makeComp(x, y, theta);
+		score = cim.Tag2Res(this.mv_tag);
 		return score;
 	}
 

@@ -11,6 +11,8 @@ public class compare_Imps {
 	private ImagePlus mrgImp = new ImagePlus();
 	private Anal2Result_ a2r;
 	private Mscs_ ms = new Mscs_();
+	private double result_db;
+	private int result;
 
 	public void setRefImp(ImagePlus ref) {
 		this.refATimp = ref;
@@ -38,12 +40,21 @@ public class compare_Imps {
 		this.mrgImp.show();
 		this.a2r = new Anal2Result_(this.mrgImp);
 		result = a2r.getIntValsArray(Measurements.MEAN);
+		this.result = result[0];
+
 		result_db = a2r.getDblValsArray(Measurements.MEAN);
+		this.result_db = result_db[0];
 
 		ms.ints2ijlog(result);
 		ms.db2ijlog(result_db);
 
 //		return result;
+	}
+
+	public double Tag2Res(ImagePlus tag) {
+		setTagImp(tag);
+		comp2imp();
+		return this.result_db;
 	}
 
 	private boolean check2imps() {
