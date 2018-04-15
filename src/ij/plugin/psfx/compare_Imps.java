@@ -37,15 +37,16 @@ public class compare_Imps {
 		ImageCalculator ic = new ImageCalculator();
 
 		this.mrgImp = ic.run("XOR create", this.refATimp, this.tagATimp);
-		this.mrgImp.show();
+		//this.mrgImp.show();
 		this.a2r = new Anal2Result_(this.mrgImp);
-		result = a2r.getIntValsArray(Measurements.MEAN);
-		this.result = result[0];
+
+//		result = a2r.getIntValsArray(Measurements.MEAN);
+//		this.result = result[0];
 
 		result_db = a2r.getDblValsArray(Measurements.MEAN);
 		this.result_db = result_db[0];
 
-		ms.ints2ijlog(result);
+//		ms.ints2ijlog(result);
 		ms.db2ijlog(result_db);
 
 //		return result;

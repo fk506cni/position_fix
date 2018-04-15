@@ -20,7 +20,7 @@ public class Args_Getter implements PlugIn{
 	private double roundL= -90;
 	private double roundR= 90;
 	private int round_gradient;
-	private int searchL=1000;
+	private int searchL=100;
 
 	private String output_dir="D:\\pf_test\\";
 	private File output_dir_asfile;
@@ -154,5 +154,18 @@ public class Args_Getter implements PlugIn{
 
 	public File getTagImg() {
 		return this.tag_image_file;
+	}
+
+	public int getSearchL() {
+		return this.searchL;
+	}
+
+	public double[] getThetaLR() {
+		double[] result = {this.roundL, this.roundR};
+		return result;
+	}
+
+	public int getSeed() {
+		return this.random_seed;
 	}
 }

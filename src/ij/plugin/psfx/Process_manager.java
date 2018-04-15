@@ -8,6 +8,7 @@ public class Process_manager {
 	private prepareATimp_ pat = new prepareATimp_();
 	private compare_Imps cim = new compare_Imps();
 	private Eval ev = new Eval();
+	private Genomic_Algorithm ga = new Genomic_Algorithm();
 
 	public void main() {
 		IJ.log("getting args...");
@@ -32,6 +33,9 @@ public class Process_manager {
 
 		double res = this.ev.getEval(-100, -100, -5.0);
 		IJ.log(String.valueOf(res));
+
+
+
 	}
 
 }

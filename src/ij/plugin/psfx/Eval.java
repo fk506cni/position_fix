@@ -82,7 +82,7 @@ public class Eval {
 		//rotate
 		IJ.run(this.mv_tag, "Rotate... ", "angle="+String.valueOf(theta)+" grid=1 interpolation=Bilinear fill");
 
-		this.mv_tag.show();
+		//this.mv_tag.show();
 
 	}
 
