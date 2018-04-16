@@ -22,9 +22,16 @@ public class Genomic_Algorithm {
 	private int searchL;
 
 	//GA parameter
-	private int genome_length = 3;
-	private int max_population =10;
-	private int select_genom = 200;
+//	private int genome_length = 3;
+	private int max_population =30;
+//	private int select_genom = 200;
+
+	//rate of elite
+	private double select_genom_rate = 0.3;
+
+	//rate of children
+	private double new_progeny_rate = 0.5;
+	private double carry_over_rate = 0.4;
 	private double individual_mutation_rate = 0.05;
 	private double genome_mutation_rate= 0.05;
 	private int process_generation=10;
@@ -112,6 +119,22 @@ public class Genomic_Algorithm {
 		return theta;
 	}
 
+	public int[] getNextPairInts(int lowend, int highend) {
+		//give randome pair nod duplicated
+		//lowend <= pair < highend
+
+		int i1 = (int)((highend - lowend)* this.rand.nextDouble() + lowend);
+		IJ.log(String.valueOf(i1)+ " is i1");
+		int i2 = i1;
+		while(i1 == i2) {
+			i2 = (int)((highend - lowend)* this.rand.nextDouble() + lowend);
+			IJ.log(String.valueOf(i2)+ " is i2");
+		}
+
+		int[] result = {i1, i2};
+		return result;
+	}
+
 
 	public Genome_ga make1Genome() {
 		Genome_ga ga1 = new Genome_ga();
@@ -136,21 +159,83 @@ public class Genomic_Algorithm {
 	}
 
 	public ArrayList<Genome_ga> pickEliteGenomes(ArrayList<Genome_ga> genome_list) {
+		int elite_size = (int)(this.max_population*this.select_genom_rate);
 		int list_size = genome_list.size();
 		IJ.log("original genomes");
 		for(int i =0; i<list_size; i++) {
 			genome_list.get(i).log_genom_eval();
 		}
 
-		ArrayList<Genome_ga> elite_list = new ArrayList<Genome_ga>();
 		Collections.sort(genome_list, comG);
 
 		IJ.log("sorted genomes");
 		for(int i =0; i<list_size; i++) {
 			genome_list.get(i).log_genom_eval();
 		}
-		elite_list = genome_list;
+		ArrayList<Genome_ga> elite_list = new ArrayList<Genome_ga>(genome_list.subList(0,  elite_size));
+
+		IJ.log("elite genomes");
+		for(int i =0; i<elite_size;i++) {
+			elite_list.get(i).log_genom_eval();
+		}
+
 		return elite_list;
+	}
+
+	public Genome_ga CrossOver(Genome_ga ga1, Genome_ga ga2) {
+		int x = 0;
+		if(this.rand.nextDouble()<this.carry_over_rate) {
+			x = this.rand.nextBoolean() ? ga1.getGeneX(): ga2.getGeneX();
+		}else {
+			double r = this.rand.nextDouble();
+			x = (int)Math.round(r*ga1.getGeneX() +(1-r)*ga2.getGeneX());
+		}
+
+		int y = 0;
+		if(this.rand.nextDouble()<this.carry_over_rate) {
+			y = this.rand.nextBoolean() ? ga1.getGeneY(): ga2.getGeneY();
+		}else {
+			double r = this.rand.nextDouble();
+			y = (int)Math.round(r*ga1.getGeneY() +(1-r)*ga2.getGeneY());
+		}
+
+		double theta = 0;
+		if(this.rand.nextDouble()<this.carry_over_rate) {
+			theta = this.rand.nextBoolean() ? ga1.getGeneTheta() : ga2.getGeneTheta();;
+		}else {
+			double r = this.rand.nextDouble();
+			theta = r*ga1.getGeneTheta() +(1-r)*ga2.getGeneTheta();
+		}
+
+
+		Genome_ga progeny = new Genome_ga();
+		progeny.setGenes(x, y, theta);
+		return progeny;
+	}
+
+	public ArrayList<Genome_ga> createNextGen(ArrayList<Genome_ga> elite_list, int progeny_size){
+		int elite_size = elite_list.size();
+		ArrayList<Genome_ga> progeny_list = new ArrayList<Genome_ga>();
+
+		IJ.log("creating children");
+
+		for(int i=0; i<progeny_size;i++) {
+			int[] parent_pair = getNextPairInts(0, elite_size);
+			ms.ints2ijlog(parent_pair);
+			Genome_ga parent0 = elite_list.get(parent_pair[0]);
+			Genome_ga parent1 = elite_list.get(parent_pair[1]);
+			Genome_ga child = CrossOver(parent0, parent1);
+			eval1logGenome(child);
+			progeny_list.add(child);
+		}
+
+		IJ.log("checking children.");
+
+		for(int i=0; i<progeny_size;i++) {
+			progeny_list.get(i).log_genom();
+		}
+
+		return progeny_list;
 	}
 
 	public void main() {
@@ -163,9 +248,14 @@ public class Genomic_Algorithm {
 			genome_i = make1Genome();
 			eval1logGenome(genome_i);
 			this.genome_list.add(genome_i);
+
+			ms.ints2ijlog(getNextPairInts(0,10));
 		}
 
 		ArrayList<Genome_ga> elite_list = pickEliteGenomes(genome_list);
+
+		ArrayList<Genome_ga> progeny_list = createNextGen(elite_list, 10);
+
 
 		//ev.showTag4Check();
 	}
