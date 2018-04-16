@@ -2,6 +2,7 @@ package ij.plugin.psfx;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import ij.IJ;
 import ij.ImagePlus;
@@ -22,7 +23,7 @@ public class Genomic_Algorithm {
 
 	//GA parameter
 	private int genome_length = 3;
-	private int max_population =1000;
+	private int max_population =10;
 	private int select_genom = 200;
 	private double individual_mutation_rate = 0.05;
 	private double genome_mutation_rate= 0.05;
@@ -134,15 +135,37 @@ public class Genomic_Algorithm {
 		//ga1.log_genom();
 	}
 
+	public ArrayList<Genome_ga> pickEliteGenomes(ArrayList<Genome_ga> genome_list) {
+		int list_size = genome_list.size();
+		IJ.log("original genomes");
+		for(int i =0; i<list_size; i++) {
+			genome_list.get(i).log_genom_eval();
+		}
+
+		ArrayList<Genome_ga> elite_list = new ArrayList<Genome_ga>();
+		Collections.sort(genome_list, comG);
+
+		IJ.log("sorted genomes");
+		for(int i =0; i<list_size; i++) {
+			genome_list.get(i).log_genom_eval();
+		}
+		elite_list = genome_list;
+		return elite_list;
+	}
+
 	public void main() {
 		parseParam();
 		Genome_ga genome_i;
+
+
 		for(int i=0; i<this.max_population;i++) {
 			ms.int2ijlog(i);
 			genome_i = make1Genome();
 			eval1logGenome(genome_i);
 			this.genome_list.add(genome_i);
 		}
+
+		ArrayList<Genome_ga> elite_list = pickEliteGenomes(genome_list);
 
 		//ev.showTag4Check();
 	}

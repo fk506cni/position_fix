@@ -46,4 +46,7 @@ public class Genome_ga {
 				"\ngene theta: "+String.valueOf(this.gene_theta)+
 				"\neval_val: "+String.valueOf(this.eval_val));
 	}
+	public void log_genom_eval() {
+		IJ.log("eval_val: "+String.valueOf(this.eval_val));
+	}
 }
