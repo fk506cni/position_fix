@@ -1,6 +1,8 @@
 package ij.plugin.psfx;
 //genom class for GA
 
+import ij.IJ;
+
 public class Genome_ga {
 	private int gene_x;
 	private int gene_y;
@@ -36,5 +38,12 @@ public class Genome_ga {
 
 	public double getEval() {
 		return this.eval_val;
+	}
+
+	public void log_genom() {
+		IJ.log("gene x:"+String.valueOf(this.gene_x)+
+				"\ngene y: "+String.valueOf(this.gene_y)+
+				"\ngene theta: "+String.valueOf(this.gene_theta)+
+				"\neval_val: "+String.valueOf(this.eval_val));
 	}
 }

@@ -32,8 +32,8 @@ public class compare_Imps {
 		*/
 
 		IJ.log("xor images.");
-		this.refATimp.show();
-		this.tagATimp.show();
+		//this.refATimp.show();
+		//this.tagATimp.show();
 		ImageCalculator ic = new ImageCalculator();
 
 		this.mrgImp = ic.run("XOR create", this.refATimp, this.tagATimp);
@@ -47,7 +47,7 @@ public class compare_Imps {
 		this.result_db = result_db[0];
 
 //		ms.ints2ijlog(result);
-		ms.db2ijlog(result_db);
+//		ms.db2ijlog(result_db);
 
 //		return result;
 	}

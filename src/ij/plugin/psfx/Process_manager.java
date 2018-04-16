@@ -31,8 +31,14 @@ public class Process_manager {
 //		this.ev.makeComp(50, 50, 45.0);
 //		this.ev.makeComp(-100, -100, -5.0);
 
-		double res = this.ev.getEval(-100, -100, -5.0);
-		IJ.log(String.valueOf(res));
+		//double res = this.ev.getEval(-100, -100, -5.0);
+		//IJ.log(String.valueOf(res));
+
+
+		this.ga.setAGT(this.agt);
+		this.ga.setPAM(this.pat);
+		this.ga.setRefTag(this.pat.getFxRefImp(), this.pat.getFxTagImp());
+		this.ga.main();
 
 
 

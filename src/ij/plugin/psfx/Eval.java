@@ -5,6 +5,7 @@ import ij.ImagePlus;
 import ij.gui.ImageRoi;
 import ij.gui.Overlay;
 import ij.gui.Roi;
+import ij.plugin.Duplicator;
 import ij.plugin.ImageCalculator;
 import ij.process.ImageProcessor;
 
@@ -21,6 +22,8 @@ public class Eval {
 
 	private Mscs_ ms = new Mscs_();
 	private compare_Imps cim = new compare_Imps();
+	private Duplicator dup = new Duplicator();
+	
 
 
 	int x;
@@ -34,12 +37,11 @@ public class Eval {
 
 	public void setTag(ImagePlus tag) {
 		this.tag = tag;
-		this.ip = this.tag.getProcessor();
+
 
 		this.canvas_x = tag.getWidth();
 		this.canvas_y = tag.getHeight();
 
-		this.mv_tag = IJ.createImage("", "8-bit white",tag.getWidth() ,tag.getHeight(), 1);
 
 		this.crop_x[1] = this.canvas_x;
 		this.crop_y[1] = this.canvas_y;
@@ -47,6 +49,7 @@ public class Eval {
 	}
 
 	public double getEval(int x, int y, double theta) {
+		IJ.log("evalating genes on genome...");
 		double score = 0.0;
 		makeComp(x, y, theta);
 		score = cim.Tag2Res(this.mv_tag);
@@ -54,21 +57,36 @@ public class Eval {
 	}
 
 	public void makeComp(int x, int y, double theta) {
+//		this.ip = this.tag.duplicate().getProcessor();
+		ImagePlus tag_tmp = this.dup.run(this.tag);
+		ImageProcessor ip = tag_tmp.getProcessor();
+		this.mv_tag = IJ.createImage("", "8-bit white",this.tag.getWidth() ,this.tag.getHeight(), 1);
+
+		int[] crop_x = {this.crop_x[0], this.crop_x[1]};
+		int[] crop_y = {this.crop_y[0], this.crop_y[1]};
+
 		if(x <= 0) {
-			this.crop_x[1] = this.crop_x[1] +x;
+			crop_x[1] = crop_x[1] +x;
 			//x= 0;
 		}else {
-			this.crop_x[0] = this.crop_x[0] -x;
+			crop_x[0] = crop_x[0] -x;
 		}
 
 		if(y <= 0) {
-			this.crop_y[1] = this.crop_y[1] +y;
+			crop_y[1] = crop_y[1] +y;
 			//y = 0;
 		}else {
-			this.crop_y[0] = this.crop_y[0] -y;
+			crop_y[0] = crop_y[0] -y;
 		}
+
+/*		IJ.log("crop condition is...");
+		ms.ints2ijlog(this.crop_x);
+		ms.ints2ijlog(this.crop_y);
+		ms.ints2ijlog(crop_x);
+		ms.ints2ijlog(crop_y);
+*/
 		//crop out
-		this.ip.setRoi(this.crop_x[0], this.crop_y[0], this.crop_x[1], this.crop_y[1]);
+		ip.setRoi(crop_x[0], crop_y[0], crop_x[1], crop_y[1]);
 		Roi roi = new ImageRoi(x, y, ip.crop());
 
         Overlay overlayList = new Overlay();
@@ -77,13 +95,25 @@ public class Eval {
         this.mv_tag = this.mv_tag.flatten();
         IJ.run(this.mv_tag, "8-bit", "");
 
-        IJ.log(String.valueOf(theta));
-
 		//rotate
 		IJ.run(this.mv_tag, "Rotate... ", "angle="+String.valueOf(theta)+" grid=1 interpolation=Bilinear fill");
 
-		//this.mv_tag.show();
+/*		this.mv_tag.setTitle("mv_tag");
+		this.mv_tag.show();
 
+		this.tag.setTitle("tag is this");
+		this.tag.show();
+*/
+	}
+
+	public void showTag4Check() {
+		this.mv_tag.setTitle("mv_tag");
+		this.mv_tag.show();
+
+		this.tag.setTitle("tag is this");
+		this.tag.show();
+		ms.ints2ijlog(this.crop_x);
+		ms.ints2ijlog(this.crop_y);
 	}
 
 }
