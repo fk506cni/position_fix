@@ -22,7 +22,7 @@ public class compare_Imps {
 		this.tagATimp = tag;
 	}
 
-	public void comp2imp() {
+	public void comp2imp(boolean withShow) {
 		int[] result;
 		double[] result_db;
 
@@ -37,7 +37,10 @@ public class compare_Imps {
 		ImageCalculator ic = new ImageCalculator();
 
 		this.mrgImp = ic.run("XOR create", this.refATimp, this.tagATimp);
-		//this.mrgImp.show();
+
+		if(withShow) {
+			this.mrgImp.show();
+		}
 		this.a2r = new Anal2Result_(this.mrgImp);
 
 //		result = a2r.getIntValsArray(Measurements.MEAN);
@@ -52,9 +55,9 @@ public class compare_Imps {
 //		return result;
 	}
 
-	public double Tag2Res(ImagePlus tag) {
+	public double Tag2Res(ImagePlus tag, boolean withShow) {
 		setTagImp(tag);
-		comp2imp();
+		comp2imp(withShow);
 		return this.result_db;
 	}
 

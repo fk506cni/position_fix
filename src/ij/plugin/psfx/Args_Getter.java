@@ -17,8 +17,8 @@ public class Args_Getter implements PlugIn{
   		  "Shanbhag","Triangle","Yen"};
 	private String ref_AT_method = "Default";
 	private String tag_AT_method = "Default";
-	private double roundL= -90;
-	private double roundR= 90;
+	private double roundL= -60;
+	private double roundR= 60;
 	private int round_gradient;
 	private int searchL=100;
 

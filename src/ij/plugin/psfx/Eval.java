@@ -23,7 +23,7 @@ public class Eval {
 	private Mscs_ ms = new Mscs_();
 	private compare_Imps cim = new compare_Imps();
 	private Duplicator dup = new Duplicator();
-	
+
 
 
 	int x;
@@ -52,7 +52,15 @@ public class Eval {
 		IJ.log("evalating genes on genome...");
 		double score = 0.0;
 		makeComp(x, y, theta);
-		score = cim.Tag2Res(this.mv_tag);
+		score = cim.Tag2Res(this.mv_tag, false);
+		return score;
+	}
+
+	public double getshowEval(int x, int y, double theta) {
+		IJ.log("evalating genes on genome...");
+		double score = 0.0;
+		makeComp(x, y, theta);
+		score = cim.Tag2Res(this.mv_tag, true);
 		return score;
 	}
 

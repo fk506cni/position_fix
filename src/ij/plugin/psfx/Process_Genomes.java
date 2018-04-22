@@ -13,6 +13,7 @@ public class Process_Genomes {
 	private SecureRandom rand ;
 	private Eval ev;
 	private ComPara_Genome comG = new ComPara_Genome();
+	private Num_java nj = new Num_java();
 
 	//GA parameter
 //	private int genome_length = 3;
@@ -309,7 +310,30 @@ public class Process_Genomes {
 		return new_gen;
 	}
 
-	public void logGenomeListStats() {
+	public void showBestInGen(ArrayList<Genome_ga> genomelist) {
+		Collections.sort(genomelist, this.comG);
+
+		Genome_ga best1 = genomelist.get(0);
+		IJ.log("best genome in this generation is...");
+		best1.log_genom();
+		ev.getshowEval(best1.getGeneX(), best1.getGeneY(), best1.getGeneTheta());
+	}
+
+
+	public void logGenomeListStats(ArrayList<Genome_ga> genomelist) {
+		int[] xs = new int[genomelist.size()];
+		int[] ys = new int[genomelist.size()];
+		double[] ths = new double[genomelist.size()];
+		double[] evals = new double[genomelist.size()];
+
+		for(int i=0; i<genomelist.size();i++) {
+			xs[i] = genomelist.get(i).getGeneX();
+			ys[i] = genomelist.get(i).getGeneY();
+			ths[i] = genomelist.get(i).getGeneTheta();
+			evals[i] = genomelist.get(i).getEval();
+		}
+
+
 
 	}
 }

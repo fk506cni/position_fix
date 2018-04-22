@@ -23,7 +23,7 @@ public class Genomic_Algorithm {
 
 	//GA parameter
 //	private int genome_length = 3;
-	private int max_population =30;
+	private int max_population =10000;
 //	private int select_genom = 200;
 
 	//rate of elite
@@ -120,22 +120,20 @@ public class Genomic_Algorithm {
 		parseParam();
 		Genome_ga genome_i;
 
-
-		for(int i=0; i<this.max_population;i++) {
+		ArrayList<Genome_ga> genomelist = prg.makeGenomeList(this.max_population);
+/*		for(int i=0; i<this.max_population;i++) {
 			ms.int2ijlog(i);
-			genome_i = make1Genome();
-			eval1logGenome(genome_i);
-			this.genome_list.add(genome_i);
+			genome_i = genomelist.get(i);
+			genome_i.log_genom();
+		}
+*/
+		prg.showBestInGen(genomelist);
 
-			ms.ints2ijlog(getNextPairInts(0,10));
+		for(int i =0; i<this.process_generation; i++) {
+
 		}
 
-		ArrayList<Genome_ga> elite_list = pickEliteGenomes(genome_list);
 
-		ArrayList<Genome_ga> progeny_list = createNextGen(elite_list, 10);
-
-
-		//ev.showTag4Check();
 	}
 
 
