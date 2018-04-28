@@ -76,7 +76,8 @@ public class BinCent_Info {
 	private ImagePlus parseATimg(ImagePlus original_imp, String ATmethod) {
 		ImagePlus imp = original_imp;
 		IJ.run(imp, "8-bit", "");
-		IJ.run(imp, "Invert", "");
+//		IJ.run(imp, "Invert", "");
+
 		IJ.setAutoThreshold(imp, ATmethod);
 		ij.Prefs.blackBackground = true;
 		IJ.run(imp, "Convert to Mask", "only");

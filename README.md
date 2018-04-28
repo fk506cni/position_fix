@@ -17,9 +17,21 @@ Fitting algorism is modified Genetic Algorithm(GA).
 
 GA parameters is bellow
 
-max population: 100
+max population: xxx
 
-process generation :5
+process generation : xx
+
+encoding: real encoding(position x, y is int, axis theta is double)
+
+selection: ranking selection
+
+cross over: uniform cross over or random mix of parents' genes.
+
+mutation:
+
+gene_tabulation:(100.0+this.rand.nextGaussian())/100)*range
+
+genome_mutation: new val in range from uniform distribution.
 
 
 
