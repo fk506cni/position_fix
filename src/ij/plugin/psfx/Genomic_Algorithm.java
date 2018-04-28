@@ -25,7 +25,7 @@ public class Genomic_Algorithm {
 
 	//GA parameter
 //	private int genome_length = 3;
-	private int max_population =200;
+	private int max_population =100;
 //	private int select_genom = 200;
 
 	//rate of elite
@@ -41,7 +41,7 @@ public class Genomic_Algorithm {
 
 	private double individual_mutation_rate = 0.03;
 	private double genome_mutation_rate= 0.01;
-	private int process_generation=5;
+	private int process_generation=3;
 
 	//GA objects
 	private ArrayList<Genome_ga> genome_list = new ArrayList<Genome_ga>();

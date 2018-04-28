@@ -34,6 +34,24 @@ gene_tabulation:(100.0+this.rand.nextGaussian())/100)*range
 genome_mutation: new val in range from uniform distribution.
 
 
+License
+============
+
+Plugin: GPLv3
+
+Cartoons above: from irasutoya, "http://www.irasutoya.com/". Copyright is belong to Irasutoya.
 
 
-## under construction
+
+
+Written by
+
+fk506cni == unkodaisuki!
+
+since 2018.3
+
+
+Citation
+============
+
+Under construction
