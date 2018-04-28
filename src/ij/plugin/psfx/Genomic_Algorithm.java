@@ -21,9 +21,11 @@ public class Genomic_Algorithm {
 	private ImagePlus tag;
 	private int searchL;
 
+	private static int generation_count =0;
+
 	//GA parameter
 //	private int genome_length = 3;
-	private int max_population =10000;
+	private int max_population =200;
 //	private int select_genom = 200;
 
 	//rate of elite
@@ -39,7 +41,7 @@ public class Genomic_Algorithm {
 
 	private double individual_mutation_rate = 0.03;
 	private double genome_mutation_rate= 0.01;
-	private int process_generation=10;
+	private int process_generation=5;
 
 	//GA objects
 	private ArrayList<Genome_ga> genome_list = new ArrayList<Genome_ga>();
@@ -48,6 +50,9 @@ public class Genomic_Algorithm {
 	private int[] x_range = {0,0};
 	private int[] y_range = {0,0};
 	private double[] theta_range = {0,0};
+
+	//last result
+	Genome_ga lastbest;
 
 	//setter
 	public void setAGT(Args_Getter agt) {
@@ -118,9 +123,10 @@ public class Genomic_Algorithm {
 
 	public void main() {
 		parseParam();
-		Genome_ga genome_i;
+		System.gc();
 
 		ArrayList<Genome_ga> genomelist = prg.makeGenomeList(this.max_population);
+		prg.logGenomeListStats(genomelist);
 /*		for(int i=0; i<this.max_population;i++) {
 			ms.int2ijlog(i);
 			genome_i = genomelist.get(i);
@@ -130,12 +136,16 @@ public class Genomic_Algorithm {
 		prg.showBestInGen(genomelist);
 
 		for(int i =0; i<this.process_generation; i++) {
-
+			ArrayList<Genome_ga> gen = prg.makeNewGenGenomeList(genomelist);
+			prg.logGenomeListStats(gen);
+			prg.showBestInGen(gen);
 		}
 
+		this.lastbest = prg.getBestInGen(genomelist);
+		}
 
+	public Genome_ga getLastBest() {
+		return this.lastbest;
 	}
-
-
 
 }

@@ -16,6 +16,16 @@ public class prepareATimp_{
 	private Mscs_ ms =new Mscs_();
 	private int add_margin = 100;
 
+	protected int[] ref_size;
+	protected int[] ref_cent;
+	protected int[] ref_centM;
+
+	protected int[] tag_size;
+	protected int[] tag_putinSize;
+	protected int[] tag_cent;
+	protected int[] tag_centM;
+
+
 
 
 	public void setBinCent(BinCent_Info bc) {
@@ -28,9 +38,9 @@ public class prepareATimp_{
 
 	public void FixImp() {
 		ImagePlus refFx = new ImagePlus();
-		int[] ref_size = bc.getRefSize();
-		int[] ref_cent = bc.getRefCent();
-		int[] ref_centM = bc.getRefCentM();
+		ref_size = bc.getRefSize();
+		ref_cent = bc.getRefCent();
+		ref_centM = bc.getRefCentM();
 		refFx = prepCentImp(this.bc.getBinRefImp(), ref_size, ref_cent, ref_centM).flatten();
 		IJ.run(refFx, "8-bit", "");
 		this.refFXimp = refFx;
@@ -38,10 +48,10 @@ public class prepareATimp_{
 
 		ImagePlus tagFx = new ImagePlus();
 
-		int[] tag_putinSize = {refFx.getWidth(), refFx.getHeight()};
-		int[] tag_size = bc.getTagSize();
-		int[] tag_cent = bc.getTagCent();
-		int[] tag_centM = bc.getTagCentM();
+		tag_putinSize = new int[]{refFx.getWidth(), refFx.getHeight()};
+		tag_size = bc.getTagSize();
+		tag_cent = bc.getTagCent();
+		tag_centM = bc.getTagCentM();
 		//tagFx = prepCentImp(this.bc.getBinTagImp(), tag_size, tag_cent, tag_centM);
 		tagFx = putImpIn(this.bc.getBinTagImp(),tag_putinSize, tag_centM).flatten();
 		IJ.run(tagFx, "8-bit", "");
@@ -49,11 +59,17 @@ public class prepareATimp_{
 		this.tagFXimp = tagFx;
 		}
 
+
+
 	private ImagePlus prepCentImp(ImagePlus ATimp, int[] size, int[] cent, int[] centM){
-		IJ.log("prep_imp");
+		IJ.log("preparing imp");
+		IJ.log("size is ");
 		ms.ints2ijlog(size);
+		IJ.log("center is ");
 		ms.ints2ijlog(cent);
+		IJ.log("center of Mass is ");
 		ms.ints2ijlog(centM);
+
 		int XL = size[0];
 		int YL = size[1];
 		int centx = cent[0];
@@ -64,6 +80,7 @@ public class prepareATimp_{
 		int dx = centMx - centx;
 		int dy = centMy - centy;
 
+		IJ.log("center dx and dy is");
 		ms.int2ijlog(dx);
 		ms.int2ijlog(dy);
 
@@ -79,6 +96,9 @@ public class prepareATimp_{
 			FxL = 2 *(XL - centMx);
 			xPos = XL - ( 2* centMx);
 		}
+		IJ.log("FxL, xPos, centMx, centx, dx is");
+		int[] designX = {FxL, xPos, centMx, centx, dx};
+		ms.ints2ijlog(designX);
 
 		if(dy >= 0) {
 			FyL = 2 * centMy;
@@ -87,6 +107,10 @@ public class prepareATimp_{
 			FyL = 2 *(YL - centMy);
 			yPos = YL - (2 * centMy);
 		}
+
+		IJ.log("FyL, yPos, centMy, centy, dy is");
+		int[] designY = {FyL, yPos, centMy, centy, dy};
+		ms.ints2ijlog(designY);
 
 		ImagePlus imp = IJ.createImage("", "8-bit white", FxL+2*this.add_margin, FyL+2*this.add_margin, 1);
 		//imp.show();
@@ -101,7 +125,7 @@ public class prepareATimp_{
 		return imp;
 	}
 
-	private ImagePlus putImpIn(ImagePlus ATimp, int[] size_ofPallette, int[] centM_ofImp) {
+	public ImagePlus putImpIn(ImagePlus ATimp, int[] size_ofPallette, int[] centM_ofImp) {
 		IJ.log("put imp in.");
 		ImagePlus overlay = ATimp;
 
@@ -127,11 +151,25 @@ public class prepareATimp_{
 		ip.setRoi(x, y, rwidth, rheight);
 
 		Roi roi = new ImageRoi(xPos, yPos, ip.crop());
-		ImagePlus imp = IJ.createImage("", "8-bit white", size_ofPallette[0], size_ofPallette[1], 1);
+		ImagePlus imp = IJ.createImage("", "RGB white", size_ofPallette[0], size_ofPallette[1], 1);
 
         Overlay overlayList = new Overlay();
         overlayList.add(roi);
         imp.setOverlay(overlayList);
+		return imp;
+	}
+
+	public ImagePlus reverseImpOut(ImagePlus imp,  int[] ref_centM, int[] ref_size) {
+		IJ.log("reverse imp out.");
+
+		int[] imp_cent = {(int)(imp.getWidth()/2), (int)(imp.getHeight()/2)};
+		int x = imp_cent[0] - ref_centM[0];
+		int y = imp_cent[1] - ref_centM[1];
+		int wid = ref_size[0];
+		int hei = ref_size[1];
+
+		imp.setRoi(x, y, wid, hei);
+		IJ.run(imp, "Crop", "");
 		return imp;
 	}
 

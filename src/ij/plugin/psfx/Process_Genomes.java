@@ -134,21 +134,23 @@ public class Process_Genomes {
 	}
 
 
+	/*
 	public int[] getNextPairInts(int lowend, int highend) {
 		//give randome pair nod duplicated
 		//lowend <= pair < highend
 
 		int i1 = (int)((highend - lowend)* this.rand.nextDouble() + lowend);
-		IJ.log(String.valueOf(i1)+ " is i1");
+		//IJ.log(String.valueOf(i1)+ " is i1");
 		int i2 = i1;
 		while(i1 == i2) {
 			i2 = (int)((highend - lowend)* this.rand.nextDouble() + lowend);
-			IJ.log(String.valueOf(i2)+ " is i2");
+			//IJ.log(String.valueOf(i2)+ " is i2");
 		}
 
 		int[] result = {i1, i2};
 		return result;
 	}
+	*/
 
 	public int[] getRankBiasPair(int rankers_length) {
 		//return 2 rankers randomly selected but biased by rank
@@ -158,13 +160,13 @@ public class Process_Genomes {
 		double d1 =this.rand.nextDouble()*l;
 		double d2 =this.rand.nextDouble()*l;
 		int i1 = (int)(Math.min(d1, d2));
-		IJ.log(String.valueOf(i1)+ " is i1");
+		//IJ.log(String.valueOf(i1)+ " is i1");
 		int i2 = i1;
 		while(i1 == i2) {
 			double d3 =this.rand.nextDouble()*l;
 			double d4 =this.rand.nextDouble()*l;
 			i2 = (int)(Math.min(d3, d4));
-			IJ.log(String.valueOf(i2)+ " is i2");
+			//IJ.log(String.valueOf(i2)+ " is i2");
 		}
 
 		int[] result = {i1, i2};
@@ -268,10 +270,13 @@ public class Process_Genomes {
 		y = rangerY(y);
 		theta = rangerThe(theta);
 
-		ga1.setGenes(x, y, theta);
-		ga1.setEval(ev.getEval(x, y, theta));
-
-		return ga1;
+		if(x == ga1.getGeneX() && y == ga1.getGeneY() && theta == ga1.getGeneTheta()) {
+			return ga1;
+		}else {
+			ga1.setGenes(x, y, theta);
+			ga1.setEval(ev.getEval(x, y, theta));
+			return ga1;
+		}
 
 	}
 
@@ -319,6 +324,11 @@ public class Process_Genomes {
 		ev.getshowEval(best1.getGeneX(), best1.getGeneY(), best1.getGeneTheta());
 	}
 
+	public Genome_ga getBestInGen(ArrayList<Genome_ga> genomelist) {
+		Collections.sort(genomelist, this.comG);
+		Genome_ga best1 = genomelist.get(0);
+		return best1;
+	}
 
 	public void logGenomeListStats(ArrayList<Genome_ga> genomelist) {
 		int[] xs = new int[genomelist.size()];
@@ -333,6 +343,21 @@ public class Process_Genomes {
 			evals[i] = genomelist.get(i).getEval();
 		}
 
+		String xa = String.valueOf(nj.ints2avg(xs));
+		String xv = String.valueOf(nj.ints2sd(xs));
+		IJ.log("geneX avg:"+xa+". sd:"+xv);
+
+		String ya = String.valueOf(nj.ints2avg(ys));
+		String yv = String.valueOf(nj.ints2sd(ys));
+		IJ.log("geneY avg:"+ya+". sd:"+yv);
+
+		String ta = String.valueOf(nj.doubles2avg(ths));
+		String tv = String.valueOf(nj.doubles2sd(ths));
+		IJ.log("geneTheta avg:"+ta+". sd:"+tv);
+
+		String ea = String.valueOf(nj.doubles2avg(evals));
+		String ev = String.valueOf(nj.doubles2sd(evals));
+		IJ.log("Eval_val avg:"+ea+". sd:"+ev);
 
 
 	}

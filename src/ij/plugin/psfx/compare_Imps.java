@@ -1,6 +1,5 @@
 package ij.plugin.psfx;
 
-import ij.IJ;
 import ij.ImagePlus;
 import ij.measure.Measurements;
 import ij.plugin.ImageCalculator;
@@ -14,6 +13,10 @@ public class compare_Imps {
 	private double result_db;
 	private int result;
 
+	ImageCalculator ic = new ImageCalculator();
+	int[] results;
+	double[] result_dbs;
+
 	public void setRefImp(ImagePlus ref) {
 		this.refATimp = ref;
 	}
@@ -23,18 +26,18 @@ public class compare_Imps {
 	}
 
 	public void comp2imp(boolean withShow) {
-		int[] result;
-		double[] result_db;
 
+//		int[] result;
+//		double[] result_dbs;
 /*		if(!check2imps()) {
 			return;
 		}
 		*/
 
-		IJ.log("xor images.");
+		//IJ.log("xor images.");
 		//this.refATimp.show();
 		//this.tagATimp.show();
-		ImageCalculator ic = new ImageCalculator();
+
 
 		this.mrgImp = ic.run("XOR create", this.refATimp, this.tagATimp);
 
@@ -43,11 +46,13 @@ public class compare_Imps {
 		}
 		this.a2r = new Anal2Result_(this.mrgImp);
 
-//		result = a2r.getIntValsArray(Measurements.MEAN);
+//		results = a2r.getIntValsArray(Measurements.MEAN);
 //		this.result = result[0];
 
-		result_db = a2r.getDblValsArray(Measurements.MEAN);
-		this.result_db = result_db[0];
+		result_dbs = a2r.getDblValsArray(Measurements.MEAN);
+		this.result_db = result_dbs[0];
+
+		//this.mrgImp = null;
 
 //		ms.ints2ijlog(result);
 //		ms.db2ijlog(result_db);

@@ -5,10 +5,10 @@ import ij.ImagePlus;
 import ij.measure.Measurements;
 
 public class BinCent_Info {
-	private ImagePlus imp_ref;
-	private ImagePlus imp_tag;
-	private ImagePlus impAT_ref;
-	private ImagePlus impAT_tag;
+	protected ImagePlus imp_ref;
+	protected ImagePlus imp_tag;
+	protected ImagePlus impAT_ref;
+	protected ImagePlus impAT_tag;
 
 
 	private int[] ref_size = new int[2];
@@ -39,9 +39,10 @@ public class BinCent_Info {
 		this.a2r = new Anal2Result_(this.imp_ref);
 		this.ref_centM = a2r.getIntValsArray(Measurements.CENTER_OF_MASS);
 
+		IJ.log("ref size, cent, centM");
+		ms.ints2ijlog(this.ref_size);;
 		ms.ints2ijlog(this.ref_cent);
 		ms.ints2ijlog(this.ref_centM);
-		ms.ints2ijlog(this.ref_size);;
 
 
 		this.tag_size = parseSizeInts(this.imp_tag);
@@ -51,9 +52,10 @@ public class BinCent_Info {
 		this.a2r = new Anal2Result_(this.imp_tag);
 		this.tag_centM = a2r.getIntValsArray(Measurements.CENTER_OF_MASS);
 
+		IJ.log("tag size, cent, centM");
+		ms.ints2ijlog(this.tag_size);
 		ms.ints2ijlog(this.tag_cent);
 		ms.ints2ijlog(this.tag_centM);
-		ms.ints2ijlog(this.tag_size);
 /*		this.pbi = new parseBinImp2Res_(this.impAT_ref);
 		this.ref_cent = this.pbi.getCent();
 		IJ.log("cent is");
@@ -63,9 +65,12 @@ public class BinCent_Info {
 
 	private void parseImg() {
 		this.imp_ref = IJ.openImage(this.agt.getRefImg().getAbsolutePath());
+		IJ.run(this.imp_ref, "Set Scale...", "distance=0 global");
 		//this.imp_ref.show();
 		this.imp_tag = IJ.openImage(this.agt.getTagImg().getAbsolutePath());
+		IJ.run(this.imp_tag, "Set Scale...", "distance=0 global");
 		//this.imp_tag.show();
+
 	}
 
 	private ImagePlus parseATimg(ImagePlus original_imp, String ATmethod) {

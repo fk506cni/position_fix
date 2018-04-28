@@ -23,7 +23,7 @@ public class Args_Getter implements PlugIn{
 	private int searchL=100;
 
 	private String output_dir="D:\\pf_test\\";
-	private File output_dir_asfile;
+	private File output_dir_asfile = new File(output_dir);
 	private String[] save_formats =  {"ZIP","PNG","Jpeg","Tiff","Gif"};
 	private String save_format = "ZIP";
 	private String result_prefix ="_corected_";
@@ -39,8 +39,6 @@ public class Args_Getter implements PlugIn{
 
 		gdp.addFileField("target file", "");
 		gdp.addChoice("tag AThr_meth",this.AT_choice , this.AT_choice[0]);
-
-
 
 		gdp.addNumericField("searchLengthL", this.searchL, 0);
 		gdp.addNumericField("roundL(shouled be <=0)", this.roundL, 0);
@@ -167,5 +165,17 @@ public class Args_Getter implements PlugIn{
 
 	public int getSeed() {
 		return this.random_seed;
+	}
+
+	public File getOutDirAsFile() {
+		return this.output_dir_asfile;
+	}
+
+	public String getPrefix() {
+		return this.result_prefix;
+	}
+
+	public String getSaveAs() {
+		return this.save_format;
 	}
 }

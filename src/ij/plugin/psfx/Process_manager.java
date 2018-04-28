@@ -9,16 +9,24 @@ public class Process_manager {
 	private compare_Imps cim = new compare_Imps();
 	private Eval ev = new Eval();
 	private Genomic_Algorithm ga = new Genomic_Algorithm();
+	private Fix_Tag ft = new Fix_Tag();
+	private Imps_Save isv = new Imps_Save();
 
 	public void main() {
 		IJ.log("getting args...");
-		//this.agt.getArgsViaGUI();
+		this.agt.getArgsViaGUI();
 
 		this.bc.setArgs(this.agt);
 		this.bc.prepareInfo();
 
 		this.pat.setBinCent(this.bc);
 		this.pat.FixImp();
+
+		this.isv.setAGT(this.agt);
+		this.isv.saveImps(this.pat.getFxRefImp(), "_ref_");
+		this.isv.saveImps(this.pat.getFxTagImp(), "_tag_");
+
+
 
 
 //		this.cim.setRefImp(pat.getFxRefImp());
@@ -39,6 +47,12 @@ public class Process_manager {
 		this.ga.setPAM(this.pat);
 		this.ga.setRefTag(this.pat.getFxRefImp(), this.pat.getFxTagImp());
 		this.ga.main();
+
+		this.ft.setSuportClass(this.agt, this.bc, this.pat, this.ev);
+//		this.ft.setTagImp();
+		this.ft.setBestGenome(this.ga.getLastBest());
+		this.ft.main();
+
 
 
 

@@ -24,7 +24,7 @@ public class Eval {
 	private compare_Imps cim = new compare_Imps();
 	private Duplicator dup = new Duplicator();
 
-
+	private static int evalcount=0;
 
 	int x;
 	int y;
@@ -49,15 +49,33 @@ public class Eval {
 	}
 
 	public double getEval(int x, int y, double theta) {
-		IJ.log("evalating genes on genome...");
+		//IJ.log("evalating genes on genome...");
 		double score = 0.0;
 		makeComp(x, y, theta);
 		score = cim.Tag2Res(this.mv_tag, false);
+
+		evalcount++;
+		IJ.log("evaluation count is "+String.valueOf(evalcount));
+
 		return score;
 	}
 
+	public double getGenomeEval(Genome_ga ga1) {
+		double score;
+		if(ga1.getEval() == 0.0) {
+			int x = ga1.getGeneX();
+			int y = ga1.getGeneY();
+			double theta = ga1.getGeneTheta();
+			score = getEval(x, y, theta);
+		}else {
+			score = ga1.getEval();
+		}
+		return score;
+
+	}
+
 	public double getshowEval(int x, int y, double theta) {
-		IJ.log("evalating genes on genome...");
+		//IJ.log("evalating genes on genome...");
 		double score = 0.0;
 		makeComp(x, y, theta);
 		score = cim.Tag2Res(this.mv_tag, true);
@@ -112,6 +130,43 @@ public class Eval {
 		this.tag.setTitle("tag is this");
 		this.tag.show();
 */
+	}
+
+	public ImagePlus getMVImp(ImagePlus imp, int x, int y, double theta) {
+		ImageProcessor ipp = imp.getProcessor();
+		ImagePlus mvd = IJ.createImage("", "RGB white", imp.getWidth(), imp.getWidth(), 1);
+		int[] crop_x = {0, imp.getWidth()};
+		int[] crop_y = {0, imp.getHeight()};
+
+		if(x <= 0) {
+			crop_x[1] = crop_x[1] +x;
+			//x= 0;
+		}else {
+			crop_x[0] = crop_x[0] -x;
+		}
+
+		if(y <= 0) {
+			crop_y[1] = crop_y[1] +y;
+			//y = 0;
+		}else {
+			crop_y[0] = crop_y[0] -y;
+		}
+
+		ipp.setRoi(crop_x[0], crop_y[0], crop_x[1], crop_y[1]);
+		Roi roi = new ImageRoi(x, y, ipp.crop());
+
+		Overlay overlayList = new Overlay();
+        overlayList.add(roi);
+
+        mvd.setOverlay(overlayList);
+        mvd = mvd.flatten();
+
+        IJ.run(mvd, "Rotate... ", "angle="+String.valueOf(theta)+" grid=1 interpolation=Bilinear fill");
+        mvd = mvd.flatten();
+//        mvd.show();
+
+        return mvd;
+
 	}
 
 	public void showTag4Check() {
