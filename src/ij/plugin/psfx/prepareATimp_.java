@@ -14,7 +14,7 @@ public class prepareATimp_{
 	private ImagePlus tagFXimp;
 	private BinCent_Info bc;
 	private Mscs_ ms =new Mscs_();
-	private int add_margin = 100;
+	private int add_margin = 500;
 
 	protected int[] ref_size;
 	protected int[] ref_cent;
@@ -151,7 +151,7 @@ public class prepareATimp_{
 		ip.setRoi(x, y, rwidth, rheight);
 
 		Roi roi = new ImageRoi(xPos, yPos, ip.crop());
-		ImagePlus imp = IJ.createImage("", "RGB white", size_ofPallette[0], size_ofPallette[1], 1);
+		ImagePlus imp = IJ.createImage("", "RGB black", size_ofPallette[0], size_ofPallette[1], 1);
 
         Overlay overlayList = new Overlay();
         overlayList.add(roi);

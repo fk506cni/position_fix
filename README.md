@@ -7,6 +7,8 @@ This plugin will enable you to make images from serial section and different sta
 ![motive](https://github.com/fk506cni/position_fix/blob/master/pf_motiv.png)
 
 
+![rironnbusou](https://github.com/fk506cni/position_fix/blob/master/arg_ap.png)
+
 ## Outline
 
 this plugin fix position and axis of target image as reference image.
@@ -17,21 +19,32 @@ Fitting algorism is modified Genetic Algorithm(GA).
 
 GA parameters is bellow
 
-max population: xxx
+### max population: xxx
 
-process generation : xx
+### process generation : xx
 
-encoding: real encoding(position x, y is int, axis theta is double)
+### encoding: real encoding(position x, y is int, and axis theta is double)
 
-selection: ranking selection
+### selection: ranking selection
 
-cross over: uniform cross over or random mix of parents' genes.
+### cross over: uniform cross over or random mix of parents' genes.
 
-mutation:
+### mutation:
 
 gene_tabulation:(100.0+this.rand.nextGaussian())/100)*range
 
 genome_mutation: new val in range from uniform distribution.
+
+###
+
+
+##Caution
+
+In GA, algorism require large time if this use swap.
+
+Be careful about memory setting.
+
+
 
 
 License
