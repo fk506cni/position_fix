@@ -14,7 +14,7 @@ public class prepareATimp_{
 	private ImagePlus tagFXimp;
 	private BinCent_Info bc;
 	private Mscs_ ms =new Mscs_();
-	private int add_margin = 500;
+	private int add_margin = 150;
 
 	protected int[] ref_size;
 	protected int[] ref_cent;
@@ -112,7 +112,7 @@ public class prepareATimp_{
 		int[] designY = {FyL, yPos, centMy, centy, dy};
 		ms.ints2ijlog(designY);
 
-		ImagePlus imp = IJ.createImage("", "8-bit white", FxL+2*this.add_margin, FyL+2*this.add_margin, 1);
+		ImagePlus imp = IJ.createImage("", "8-bit black", FxL+2*this.add_margin, FyL+2*this.add_margin, 1);
 		//imp.show();
 		int x=0, y=0;
         x = xPos+this.add_margin;

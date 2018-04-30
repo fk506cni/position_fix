@@ -78,9 +78,12 @@ public class BinCent_Info {
 		IJ.run(imp, "8-bit", "");
 //		IJ.run(imp, "Invert", "");
 
+		IJ.run(imp, "Auto Threshold", "method="+ATmethod);
+/*
 		IJ.setAutoThreshold(imp, ATmethod);
 		ij.Prefs.blackBackground = true;
 		IJ.run(imp, "Convert to Mask", "only");
+*/
 		return imp;
 	}
 

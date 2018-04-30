@@ -17,7 +17,15 @@ this fitting is by mimizing Xor area about binalized image by auto thresholding 
 
 Fitting algorism is modified Genetic Algorithm(GA).
 
-GA parameters is bellow
+Args
+============
+
+## ref image
+
+
+
+
+## GA parameters
 
 ### max population: xxx
 
@@ -35,16 +43,28 @@ gene_tabulation:(100.0+this.rand.nextGaussian())/100)*range
 
 genome_mutation: new val in range from uniform distribution.
 
-###
+### preserved parents rate
+
+### invaders rate
+
+### children rate
+
+These 3 population will make next generation.
 
 
-##Caution
+## Caution
 
 In GA, algorism require large time if this use swap.
 
 Be careful about memory setting.
 
+## Processing dilemma
 
+Rotation of image is not reversible transformation.
+
+If you want to conserve target infomation as long as can, you should prepera large images.
+
+However large images require long processing time.
 
 
 License

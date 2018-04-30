@@ -28,6 +28,8 @@ public class Args_Getter implements PlugIn{
 	private String save_format = "ZIP";
 	private String result_prefix ="_corected_";
 	private int random_seed = 114514;
+	private boolean checkGAparam = false;
+
 	private GenericDialogPlus gdp = new GenericDialogPlus("PF entry");
 
 	private boolean isWin;
@@ -50,7 +52,11 @@ public class Args_Getter implements PlugIn{
 		gdp.addDirectoryField("output dir", "");
 
 		gdp.addNumericField("random_seed", this.random_seed, 0);
+
+		gdp.addCheckbox("choice GA parameters", false);
+
 		gdp.showDialog();
+
 		if (gdp.wasCanceled()) return;
 
 		this.gdp = gdp;
@@ -97,6 +103,9 @@ public class Args_Getter implements PlugIn{
 
 		this.random_seed = (int)gdp.getNextNumber();
 		IJ.log(String.valueOf(this.random_seed)+": is random seed");
+
+		this.checkGAparam = gdp.getNextBoolean();
+		IJ.log(String.valueOf(checkGAparam)+": is GA parameter choice");
 
 	}
 

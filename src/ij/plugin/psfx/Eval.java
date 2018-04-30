@@ -86,7 +86,7 @@ public class Eval {
 //		this.ip = this.tag.duplicate().getProcessor();
 		ImagePlus tag_tmp = this.dup.run(this.tag);
 		ImageProcessor ip = tag_tmp.getProcessor();
-		this.mv_tag = IJ.createImage("", "8-bit white",this.tag.getWidth() ,this.tag.getHeight(), 1);
+		this.mv_tag = IJ.createImage("", "8-bit black",this.tag.getWidth() ,this.tag.getHeight(), 1);
 
 		int[] crop_x = {this.crop_x[0], this.crop_x[1]};
 		int[] crop_y = {this.crop_y[0], this.crop_y[1]};

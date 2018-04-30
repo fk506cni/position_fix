@@ -13,6 +13,7 @@ public class Process_manager {
 	private Imps_Save isv = new Imps_Save();
 
 	public void main() {
+		IJ.run("Colors...", "foreground=black background=black selection=black");
 		IJ.log("getting args...");
 		this.agt.getArgsViaGUI();
 
