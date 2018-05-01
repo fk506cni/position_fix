@@ -12,6 +12,9 @@ public class Args_Getter implements PlugIn{
 	private File ref_image_file = new File("D:\\pf_test\\ref.png");
 	private String tag_image_string="D:\\pf_test\\tag.png";
 	private File tag_image_file = new File("D:\\pf_test\\tag.png");
+
+	private String tag_tag;
+
 	private String[] AT_choice={"Default","Huang","Huang2","Intermodes","IsoData","Li","MaxEntropy",
   		  "Mean","MinError(I)","Minimum","Moments","Otsu","Percentile","RenyiEntropy",
   		  "Shanbhag","Triangle","Yen"};
@@ -78,6 +81,11 @@ public class Args_Getter implements PlugIn{
 		this.tag_image_string = gdp.getNextString();
 		this.tag_image_file = new File(this.tag_image_string);
 		IJ.log(this.tag_image_string+": is target image.");
+
+		this.tag_tag = this.tag_image_file.getName();
+		this.tag_tag = tag_tag.replaceAll("\\.[a-z0-9]*$", "");
+		IJ.log(tag_tag+": is process image keyword");
+
 
 		this.tag_AT_method = gdp.getNextChoice();
 		IJ.log(this.tag_AT_method+": is tag AT method.");
@@ -186,5 +194,9 @@ public class Args_Getter implements PlugIn{
 
 	public String getSaveAs() {
 		return this.save_format;
+	}
+
+	public String getTagWord() {
+		return this.tag_tag;
 	}
 }

@@ -84,7 +84,8 @@ public class Eval {
 
 	public ImagePlus getEvalImp(int x, int y, double theta) {
 		makeComp(x, y, theta);
-		return this.mv_tag;
+		double score = cim.Tag2Res(this.mv_tag, false);
+		return cim.getMergedImp();
 	}
 
 	public void makeComp(int x, int y, double theta) {

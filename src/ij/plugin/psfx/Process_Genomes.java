@@ -15,6 +15,7 @@ public class Process_Genomes {
 	private Eval ev;
 	private ComPara_Genome comG = new ComPara_Genome();
 	private Num_java nj = new Num_java();
+	private Eval_GenomeList evg = new Eval_GenomeList();
 
 	//GA parameter
 //	private int genome_length = 3;
@@ -74,6 +75,13 @@ public class Process_Genomes {
 		this.ev = ev;
 	}
 
+	public void setSupClass(Args_Getter agt, Eval ev, prepareATimp_ pam) {
+		this.agt= agt;
+		this.ev = ev;
+		this.pam = pam;
+		this.evg.setATimps(pam.getFxRefImp(), pam.getFxTagImp());
+	}
+
 	public void setGenesRange(
 			int[] x_range,
 			int[] y_range,
@@ -107,7 +115,8 @@ public class Process_Genomes {
 		int y = getNextIntRange(this.y_range);
 		double theta = getNextDoubleRange(this.theta_range);
 		ga1.setGenes(x, y, theta);
-		ga1.setEval(ev.getEval(x, y, theta));
+//		ga1.setEval(ev.getEval(x, y, theta));
+		ga1.setEval(0.0);
 		return ga1;
 	}
 
@@ -117,6 +126,9 @@ public class Process_Genomes {
 		for(int i =0; i<length;i++) {
 			genomelist.add(make1Genome());
 		}
+
+		genomelist = evg.evalGenomeList(genomelist);
+
 		return genomelist;
 	}
 
@@ -207,7 +219,9 @@ public class Process_Genomes {
 
 		Genome_ga progeny = new Genome_ga();
 		progeny.setGenes(x, y, theta);
-		progeny.setEval(ev.getEval(x, y, theta));
+
+		//progeny.setEval(ev.getEval(x, y, theta));
+		progeny.setEval(0.0);
 		return progeny;
 
 	}
@@ -243,11 +257,12 @@ public class Process_Genomes {
 	}
 
 	public Genome_ga mutate1Genome(Genome_ga ga1) {
-		//perturbation
+
 		int x = ga1.getGeneX();
 		int y = ga1.getGeneY();
 		double theta = ga1.getGeneTheta();
 
+		//perturbation
 		if(this.rand.nextDouble() < this.individual_mutation_rate) {
 			x = (int)(x+ xl*(100.0+this.rand.nextGaussian())/100);
 			y = (int)(y+ yl*(100.0+this.rand.nextGaussian())/100);
@@ -275,7 +290,8 @@ public class Process_Genomes {
 			return ga1;
 		}else {
 			ga1.setGenes(x, y, theta);
-			ga1.setEval(ev.getEval(x, y, theta));
+			//ga1.setEval(ev.getEval(x, y, theta));
+			ga1.setEval(0.0);
 			return ga1;
 		}
 
@@ -313,6 +329,7 @@ public class Process_Genomes {
 		new_gen.addAll(invaders);
 		new_gen.addAll(progeny);
 
+		new_gen = evg.evalGenomeList(new_gen);
 		return new_gen;
 	}
 

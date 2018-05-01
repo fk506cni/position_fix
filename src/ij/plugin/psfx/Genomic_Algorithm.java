@@ -17,6 +17,8 @@ public class Genomic_Algorithm {
 
 	private Mscs_ ms = new Mscs_();
 
+
+
 	private int random_seed= 114514;
 	private ImagePlus ref;
 	private ImagePlus tag;
@@ -135,7 +137,7 @@ public class Genomic_Algorithm {
 		}
 */
 //		prg.showBestInGen(genomelist);
-		isv.saveImps(prg.getBestImpInGen(genome_list), "xor_0");
+		isv.saveImps(prg.getBestImpInGen(genomelist), "xor_0");
 
 
 

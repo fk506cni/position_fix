@@ -27,9 +27,6 @@ public class Process_manager {
 		this.isv.saveImps(this.pat.getFxRefImp(), "_ref_");
 		this.isv.saveImps(this.pat.getFxTagImp(), "_tag_");
 
-
-
-
 //		this.cim.setRefImp(pat.getFxRefImp());
 //		this.cim.setTagImp(pat.getFxTagImp());
 //		cim.comp2imp();
@@ -54,9 +51,7 @@ public class Process_manager {
 		this.ft.setBestGenome(this.ga.getLastBest());
 		this.ft.main();
 
-
-
-
+		this.isv.saveImps(ft.getFxTagImp(), "final_tag");
 	}
 
 }

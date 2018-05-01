@@ -66,6 +66,10 @@ public class compare_Imps {
 		return this.result_db;
 	}
 
+	public ImagePlus getMergedImp() {
+		return this.mrgImp;
+	}
+
 	private boolean check2imps() {
 		boolean result_bool = false;
 

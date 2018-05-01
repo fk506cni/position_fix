@@ -22,6 +22,13 @@ Args
 
 ## ref image
 
+reference image. This is used to fix target image. This image file is not modified.
+
+## tag image
+
+image file you want to fix position and axis.
+
+
 
 
 
@@ -82,6 +89,18 @@ Written by
 fk506cni == unkodaisuki!
 
 since 2018.3
+
+
+
+## Cause of trouble
+
+(Sorry. This section is contain troubles which I cant overcome in plugin.)
+
+### Image selection
+
+if image file contain selection information. Auto Thresholding is done in selected area.
+
+
 
 
 Citation

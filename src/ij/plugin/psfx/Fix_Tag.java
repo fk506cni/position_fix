@@ -70,4 +70,8 @@ public class Fix_Tag {
 //		fx3.show();
 		fx.show();
 		}
+
+	public ImagePlus getFxTagImp() {
+		return this.fx;
+	}
 }
