@@ -17,10 +17,10 @@ public class Args_Getter implements PlugIn{
   		  "Shanbhag","Triangle","Yen"};
 	private String ref_AT_method = "Default";
 	private String tag_AT_method = "Default";
-	private double roundL= -60;
-	private double roundR= 60;
+	private double roundL= -10;
+	private double roundR= 10;
 	private int round_gradient;
-	private int searchL=100;
+	private int searchL=1000;
 
 	private String output_dir="D:\\pf_test\\";
 	private File output_dir_asfile = new File(output_dir);

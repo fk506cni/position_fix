@@ -45,7 +45,7 @@ public class Eval {
 
 		this.crop_x[1] = this.canvas_x;
 		this.crop_y[1] = this.canvas_y;
-		IJ.run("Colors...", "foreground=black background=white selection=white");
+		IJ.run("Colors...", "foreground=black background=black selection=black");
 	}
 
 	public double getEval(int x, int y, double theta) {
@@ -82,10 +82,16 @@ public class Eval {
 		return score;
 	}
 
+	public ImagePlus getEvalImp(int x, int y, double theta) {
+		makeComp(x, y, theta);
+		return this.mv_tag;
+	}
+
 	public void makeComp(int x, int y, double theta) {
 //		this.ip = this.tag.duplicate().getProcessor();
 		ImagePlus tag_tmp = this.dup.run(this.tag);
 		ImageProcessor ip = tag_tmp.getProcessor();
+
 		this.mv_tag = IJ.createImage("", "8-bit black",this.tag.getWidth() ,this.tag.getHeight(), 1);
 
 		int[] crop_x = {this.crop_x[0], this.crop_x[1]};

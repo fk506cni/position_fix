@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import ij.IJ;
+import ij.ImagePlus;
 
 public class Process_Genomes {
 
@@ -322,6 +323,17 @@ public class Process_Genomes {
 		IJ.log("best genome in this generation is...");
 		best1.log_genom();
 		ev.getshowEval(best1.getGeneX(), best1.getGeneY(), best1.getGeneTheta());
+	}
+
+	public ImagePlus getBestImpInGen(ArrayList<Genome_ga> genomelist) {
+		Collections.sort(genomelist, this.comG);
+
+		Genome_ga best1 = genomelist.get(0);
+		IJ.log("best genome in this generation is...");
+		best1.log_genom();
+
+		ImagePlus bestImp = ev.getEvalImp(best1.getGeneX(), best1.getGeneY(), best1.getGeneTheta());
+		return bestImp;
 	}
 
 	public Genome_ga getBestInGen(ArrayList<Genome_ga> genomelist) {

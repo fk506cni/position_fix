@@ -13,6 +13,7 @@ public class Genomic_Algorithm {
 	private Eval ev;
 	private ComPara_Genome comG = new ComPara_Genome();
 	private Process_Genomes prg;
+	private Imps_Save isv = new Imps_Save();
 
 	private Mscs_ ms = new Mscs_();
 
@@ -24,7 +25,7 @@ public class Genomic_Algorithm {
 	private static int generation_count =0;
 
 	//GA parameter
-	private int max_population =100;
+	private int max_population =200;
 
 	//rate of preserved parents;
 	double preserve_parent_rate =0.4;
@@ -50,6 +51,7 @@ public class Genomic_Algorithm {
 	//setter
 	public void setAGT(Args_Getter agt) {
 		this.agt = agt;
+		this.isv.setAGT(agt);
 	}
 
 	public void setPAM(prepareATimp_ pam) {
@@ -86,12 +88,18 @@ public class Genomic_Algorithm {
 		this.random_seed = this.agt.getSeed();
 
 		IJ.log("Genomic Alg, parsed parameters...");
+		IJ.log("search Length is");
 		ms.int2ijlog(L);
+		IJ.log("ref width is");
 		ms.int2ijlog(wid);
+		IJ.log("ref hei is");
 		ms.int2ijlog(hei);
 
+		IJ.log("search x range is");
 		ms.ints2ijlog(this.x_range);
+		IJ.log("search y range is");
 		ms.ints2ijlog(this.y_range);
+		IJ.log("search theta range is");
 		ms.db2ijlog(this.theta_range);
 
 		this.rand = new SecureRandom();
@@ -126,13 +134,16 @@ public class Genomic_Algorithm {
 			genome_i.log_genom();
 		}
 */
-		prg.showBestInGen(genomelist);
+//		prg.showBestInGen(genomelist);
+		isv.saveImps(prg.getBestImpInGen(genome_list), "xor_0");
+
 
 
 		for(int i =0; i<this.process_generation; i++) {
 			genomelist = prg.makeNewGenGenomeList(genomelist);
 			prg.logGenomeListStats(genomelist);
-			prg.showBestInGen(genomelist);
+			//prg.showBestInGen(genomelist);
+			isv.saveImps(prg.getBestImpInGen(genomelist), "xor_"+String.valueOf(i+1));
 		}
 
 		this.lastbest = prg.getBestInGen(genomelist);
