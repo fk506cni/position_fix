@@ -27,7 +27,7 @@ public class Genomic_Algorithm {
 	private static int generation_count =0;
 
 	//GA parameter
-	private int max_population =100;
+	private int max_population =300;
 
 	//rate of preserved parents;
 	double preserve_parent_rate =0.4;
@@ -37,7 +37,7 @@ public class Genomic_Algorithm {
 	private double carry_over_rate = 0.5;
 	private double individual_mutation_rate = 0.03;
 	private double genome_mutation_rate= 0.01;
-	private int process_generation=3;
+	private int process_generation=10;
 
 	//GA objects
 	private ArrayList<Genome_ga> genome_list = new ArrayList<Genome_ga>();
