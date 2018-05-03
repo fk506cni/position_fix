@@ -20,10 +20,10 @@ public class Args_Getter implements PlugIn{
   		  "Shanbhag","Triangle","Yen"};
 	private String ref_AT_method = "Default";
 	private String tag_AT_method = "Default";
-	private double roundL= -10;
-	private double roundR= 10;
+	private double roundL= -90;
+	private double roundR= 90;
 	private int round_gradient;
-	private int searchL=1000;
+	private int searchL=200;
 
 	private String output_dir="D:\\pf_test\\";
 	private File output_dir_asfile = new File(output_dir);
@@ -32,6 +32,7 @@ public class Args_Getter implements PlugIn{
 	private String result_prefix ="_corected_";
 	private int random_seed = 114514;
 	private boolean checkGAparam = false;
+	private int add_margin = 150;
 
 	private GenericDialogPlus gdp = new GenericDialogPlus("PF entry");
 
@@ -40,10 +41,10 @@ public class Args_Getter implements PlugIn{
 	public void getArgsViaGUI() {
 		GenericDialogPlus gdp = this.gdp;
 		gdp.addFileField("reference file", "");
-		gdp.addChoice("ref AThr_meth",this.AT_choice , this.AT_choice[0]);
+		gdp.addChoice("ref AThr_meth",this.AT_choice , this.AT_choice[2]);
 
 		gdp.addFileField("target file", "");
-		gdp.addChoice("tag AThr_meth",this.AT_choice , this.AT_choice[0]);
+		gdp.addChoice("tag AThr_meth",this.AT_choice , this.AT_choice[2]);
 
 		gdp.addNumericField("searchLengthL", this.searchL, 0);
 		gdp.addNumericField("roundL(shouled be <=0)", this.roundL, 0);
@@ -198,5 +199,9 @@ public class Args_Getter implements PlugIn{
 
 	public String getTagWord() {
 		return this.tag_tag;
+	}
+
+	public int getAddMargin() {
+		return this.add_margin;
 	}
 }

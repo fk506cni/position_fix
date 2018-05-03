@@ -46,24 +46,29 @@ public class compare_Imps {
 		}
 		this.a2r = new Anal2Result_(this.mrgImp);
 
-//		results = a2r.getIntValsArray(Measurements.MEAN);
-//		this.result = result[0];
-
 		result_dbs = a2r.getDblValsArray(Measurements.MEAN);
 		this.result_db = result_dbs[0];
 
-		//this.mrgImp = null;
-
-//		ms.ints2ijlog(result);
-//		ms.db2ijlog(result_db);
-
-//		return result;
 	}
 
 	public double Tag2Res(ImagePlus tag, boolean withShow) {
 		setTagImp(tag);
 		comp2imp(withShow);
 		return this.result_db;
+	}
+
+	public double Tag2ResSafe(ImagePlus tag, boolean withShow) {
+		ImageCalculator ic2 = new ImageCalculator();
+		ImagePlus mrg = ic2.run("XOR create", this.refATimp,tag);
+
+		if(withShow) {
+			mrg.show();
+		}
+
+		Anal2Result_ a2r2 = new Anal2Result_(mrg);
+		double result = a2r2.getDblValsArray(Measurements.MEAN)[0];
+
+		return result;
 	}
 
 	public ImagePlus getMergedImp() {

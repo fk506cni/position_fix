@@ -8,6 +8,8 @@ import ij.IJ;
 import ij.ImagePlus;
 
 public class Process_Genomes {
+	private int perturbation_count = 0;
+	private int catastrophe_count =0;
 
 	private Args_Getter agt;
 	private prepareATimp_ pam;
@@ -15,22 +17,14 @@ public class Process_Genomes {
 	private Eval ev;
 	private ComPara_Genome comG = new ComPara_Genome();
 	private Num_java nj = new Num_java();
-	private Eval_GenomeList evg = new Eval_GenomeList();
+//	private Eval_GenomeList evg = new Eval_GenomeList();
+	private Eval_GenomeList_para evg = new Eval_GenomeList_para();
 
 	//GA parameter
-//	private int genome_length = 3;
-	private int max_population =30;
-//	private int select_genom = 200;
-
-	//rate of elite
-	//private double select_genom_rate = 0.3;
-
-	//rate of preserved parents;
+	private int max_population =3000;
 	double preserve_parent_rate =0.4;
 
-	//rate of invader genome;
 	double invader_genom_rate = 0.01;
-	//private double new_progeny_rate = 0.5;
 	private double carry_over_rate = 0.5;
 
 	private double individual_mutation_rate = 0.01;
@@ -78,6 +72,7 @@ public class Process_Genomes {
 	public void setSupClass(Args_Getter agt, Eval ev, prepareATimp_ pam) {
 		this.agt= agt;
 		this.ev = ev;
+		this.ev.setAgt(agt);
 		this.pam = pam;
 		this.evg.setATimps(pam.getFxRefImp(), pam.getFxTagImp());
 	}
@@ -267,19 +262,23 @@ public class Process_Genomes {
 			x = (int)(x+ xl*(100.0+this.rand.nextGaussian())/100);
 			y = (int)(y+ yl*(100.0+this.rand.nextGaussian())/100);
 			theta = theta + thel*(100.0 + this.rand.nextGaussian())/100;
+			this.perturbation_count++;
 		}
 
 		//new val
 		if(this.rand.nextDouble() < this.genome_mutation_rate) {
 			x = getNextIntRange(this.x_range);
+			this.catastrophe_count++;
 		}
 
 		if(this.rand.nextDouble() < this.genome_mutation_rate) {
 			y = getNextIntRange(this.y_range);
+			this.catastrophe_count++;
 		}
 
 		if(this.rand.nextDouble() < this.genome_mutation_rate) {
-			theta = getNextDoubleRange(this.theta_range);;
+			theta = getNextDoubleRange(this.theta_range);
+			this.catastrophe_count++;
 		}
 
 		x = rangerX(x);
@@ -304,6 +303,9 @@ public class Process_Genomes {
 	}
 
 	public ArrayList<Genome_ga> makeNewGenGenomeList(ArrayList<Genome_ga> genomelist){
+		this.perturbation_count =0;
+		this.catastrophe_count =0;
+
 		int size = genomelist.size();
 		int preserved_parents = (int)(this.max_population*this.preserve_parent_rate);
 		int invaders_size = (int)(this.invader_genom_rate*this.max_population);
@@ -324,12 +326,17 @@ public class Process_Genomes {
 			progeny.add(mutate1Genome(child));
 		}
 
+		invaders = evg.evalGenomeList(invaders);
+		progeny = evg.evalGenomeList(progeny);
+
 		ArrayList<Genome_ga> new_gen = new ArrayList<Genome_ga>();
 		new_gen.addAll(parents);
 		new_gen.addAll(invaders);
 		new_gen.addAll(progeny);
 
-		new_gen = evg.evalGenomeList(new_gen);
+		IJ.log("total perturbation in this generation creation: "+String.valueOf(this.perturbation_count));
+		IJ.log("total catastrophe in this generation creation: "+String.valueOf(this.catastrophe_count));
+//		new_gen = evg.evalGenomeList(new_gen);
 		return new_gen;
 	}
 

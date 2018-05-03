@@ -10,6 +10,7 @@ public class Fix_Tag {
 
 	ImagePlus tag;
 	ImagePlus fx = new ImagePlus();
+	ImagePlus fx_result = new ImagePlus();
 
 	//size of reference
 	int wid;
@@ -57,21 +58,28 @@ public class Fix_Tag {
 	public void main() {
 		//tag.show();
 		//1st tag centlization
-		fx = pat.putImpIn(tag, pat.tag_putinSize, pat.tag_centM).flatten();
+		IJ.run("Colors...", "foreground=black background=white selection=black");
+		fx = pat.putImpIn(tag, pat.tag_putinSize, pat.tag_centM, "white").flatten();
+		fx.setTitle("putin imp");
 		//fx.show();
 		//2nd dx, dy and dt
-		fx = this.ev.getMVImp(fx, dx, dy, dt);
+		ImagePlus fx2 = this.ev.getMVImp(fx, dx, dy, dt);
+		fx2.setTitle("move and fixed imp");
+//		fx2.show();
 //		ImagePlus fx2 = this.ev.getMVImp(fx, dx, dy, dt);
 //		fx2.show();
 
 		//3rd re crop
-		fx = this.pat.reverseImpOut(fx, this.pat.ref_centM, this.pat.ref_size);
+		ImagePlus fx3 = this.pat.reverseImpOut(fx2, this.pat.ref_centM, this.pat.ref_size);
+		fx3.setTitle("crop outed");
+		fx3.show();
+		this.fx_result = fx3;
 //		ImagePlus fx3 = this.pat.reverseImpOut(fx2, this.pat.ref_centM, this.pat.ref_size);
 //		fx3.show();
-		fx.show();
+		//fx.show();
 		}
 
 	public ImagePlus getFxTagImp() {
-		return this.fx;
+		return this.fx_result;
 	}
 }

@@ -53,7 +53,7 @@ public class prepareATimp_{
 		tag_cent = bc.getTagCent();
 		tag_centM = bc.getTagCentM();
 		//tagFx = prepCentImp(this.bc.getBinTagImp(), tag_size, tag_cent, tag_centM);
-		tagFx = putImpIn(this.bc.getBinTagImp(),tag_putinSize, tag_centM).flatten();
+		tagFx = putImpIn(this.bc.getBinTagImp(),tag_putinSize, tag_centM, "black").flatten();
 		IJ.run(tagFx, "8-bit", "");
 		//tagFx.show();
 		this.tagFXimp = tagFx;
@@ -117,6 +117,9 @@ public class prepareATimp_{
 		int x=0, y=0;
         x = xPos+this.add_margin;
         y = yPos+this.add_margin;
+
+        int[] pm = {x, y};
+        ms.ints2ijlog(pm);
         ImagePlus overlay = ATimp;
         Roi roi = new ImageRoi(x, y, overlay.getProcessor());
         Overlay overlayList = new Overlay();
@@ -125,8 +128,10 @@ public class prepareATimp_{
 		return imp;
 	}
 
-	public ImagePlus putImpIn(ImagePlus ATimp, int[] size_ofPallette, int[] centM_ofImp) {
-		IJ.log("put imp in.");
+	public ImagePlus putImpIn(ImagePlus ATimp, int[] size_ofPallette, int[] centM_ofImp, String bgcolor) {
+		IJ.log("put imp in. bg color is "+bgcolor);
+
+		IJ.run("Colors...", "foreground=black background="+bgcolor+" selection=black");
 		ImagePlus overlay = ATimp;
 
 		int ATx = ATimp.getWidth();
@@ -151,7 +156,7 @@ public class prepareATimp_{
 		ip.setRoi(x, y, rwidth, rheight);
 
 		Roi roi = new ImageRoi(xPos, yPos, ip.crop());
-		ImagePlus imp = IJ.createImage("", "RGB black", size_ofPallette[0], size_ofPallette[1], 1);
+		ImagePlus imp = IJ.createImage("", "RGB "+bgcolor, size_ofPallette[0], size_ofPallette[1], 1);
 
         Overlay overlayList = new Overlay();
         overlayList.add(roi);
@@ -162,11 +167,19 @@ public class prepareATimp_{
 	public ImagePlus reverseImpOut(ImagePlus imp,  int[] ref_centM, int[] ref_size) {
 		IJ.log("reverse imp out.");
 
+
 		int[] imp_cent = {(int)(imp.getWidth()/2), (int)(imp.getHeight()/2)};
+
+//		int x = imp_cent[0] - ref_centM[0]+this.add_margin;
+//		int y = imp_cent[1] - ref_centM[1]+this.add_margin;
 		int x = imp_cent[0] - ref_centM[0];
 		int y = imp_cent[1] - ref_centM[1];
 		int wid = ref_size[0];
 		int hei = ref_size[1];
+
+		int[] condition = {x, y, wid, hei};
+		IJ.log("crop condition is below. x, y, wid, hei.");
+		ms.ints2ijlog(condition);
 
 		imp.setRoi(x, y, wid, hei);
 		IJ.run(imp, "Crop", "");

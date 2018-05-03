@@ -21,6 +21,7 @@ public class Process_manager {
 		this.bc.prepareInfo();
 
 		this.pat.setBinCent(this.bc);
+		this.pat.setAddMargin(agt.getAddMargin());
 		this.pat.FixImp();
 
 		this.isv.setAGT(this.agt);

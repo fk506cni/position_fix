@@ -23,6 +23,8 @@ public class Eval {
 	private Mscs_ ms = new Mscs_();
 	private compare_Imps cim = new compare_Imps();
 	private Duplicator dup = new Duplicator();
+	private Args_Getter agt;
+	private int add_margin;
 
 	private static int evalcount=0;
 
@@ -48,12 +50,17 @@ public class Eval {
 		IJ.run("Colors...", "foreground=black background=black selection=black");
 	}
 
+	public void setAgt(Args_Getter agt) {
+		this.agt = agt;
+		this.add_margin = agt.getAddMargin();
+	}
+
 	public double getEval(int x, int y, double theta) {
 		//IJ.log("evalating genes on genome...");
 		double score = 0.0;
-		makeComp(x, y, theta);
-		score = cim.Tag2Res(this.mv_tag, false);
-
+		ImagePlus mv_tag = makeComp(x, y, theta);
+		//score = cim.Tag2Res(mv_tag, false);
+		score = cim.Tag2ResSafe(mv_tag, false);
 		evalcount++;
 		IJ.log("evaluation count is "+String.valueOf(evalcount));
 
@@ -74,26 +81,38 @@ public class Eval {
 
 	}
 
+	public Genome_ga getAssesedGenome(Genome_ga ga1) {
+		double score;
+		if(ga1.getEval() == 0.0) {
+			int x = ga1.getGeneX();
+			int y = ga1.getGeneY();
+			double theta = ga1.getGeneTheta();
+			score = getEval(x, y, theta);
+			ga1.setEval(score);
+			}
+		return ga1;
+	}
+
 	public double getshowEval(int x, int y, double theta) {
 		//IJ.log("evalating genes on genome...");
 		double score = 0.0;
-		makeComp(x, y, theta);
-		score = cim.Tag2Res(this.mv_tag, true);
+		ImagePlus mv_tag = makeComp(x, y, theta);
+		score = cim.Tag2Res(mv_tag, true);
 		return score;
 	}
 
 	public ImagePlus getEvalImp(int x, int y, double theta) {
-		makeComp(x, y, theta);
-		double score = cim.Tag2Res(this.mv_tag, false);
+		ImagePlus mv_tag = makeComp(x, y, theta);
+		double score = cim.Tag2Res(mv_tag, false);
 		return cim.getMergedImp();
 	}
 
-	public void makeComp(int x, int y, double theta) {
+	public ImagePlus makeComp(int x, int y, double theta) {
 //		this.ip = this.tag.duplicate().getProcessor();
 		ImagePlus tag_tmp = this.dup.run(this.tag);
 		ImageProcessor ip = tag_tmp.getProcessor();
 
-		this.mv_tag = IJ.createImage("", "8-bit black",this.tag.getWidth() ,this.tag.getHeight(), 1);
+		ImagePlus mv_tag = IJ.createImage("", "8-bit black",this.tag.getWidth() ,this.tag.getHeight(), 1);
 
 		int[] crop_x = {this.crop_x[0], this.crop_x[1]};
 		int[] crop_y = {this.crop_y[0], this.crop_y[1]};
@@ -124,15 +143,19 @@ public class Eval {
 
         Overlay overlayList = new Overlay();
         overlayList.add(roi);
-        this.mv_tag.setOverlay(overlayList);
-        this.mv_tag = this.mv_tag.flatten();
-        IJ.run(this.mv_tag, "8-bit", "");
+        mv_tag.setOverlay(overlayList);
+        mv_tag = mv_tag.flatten();
+        IJ.run(mv_tag, "8-bit", "");
 
 		//rotate
-		IJ.run(this.mv_tag, "Rotate... ", "angle="+String.valueOf(theta)+" grid=1 interpolation=Bilinear fill");
+		IJ.run(mv_tag, "Rotate... ", "angle="+String.valueOf(theta)+" grid=1 interpolation=Bilinear fill");
+
+		return mv_tag;
+
 
 /*		this.mv_tag.setTitle("mv_tag");
 		this.mv_tag.show();
+
 
 		this.tag.setTitle("tag is this");
 		this.tag.show();
@@ -140,8 +163,11 @@ public class Eval {
 	}
 
 	public ImagePlus getMVImp(ImagePlus imp, int x, int y, double theta) {
+		//imp.setTitle("pre fix pos and axis");
+		//imp.show();
+		IJ.log("getMVimp. \nx ="+String.valueOf(x)+"\ny="+String.valueOf(y)+"\ntheta="+String.valueOf(theta));
 		ImageProcessor ipp = imp.getProcessor();
-		ImagePlus mvd = IJ.createImage("", "RGB white", imp.getWidth(), imp.getWidth(), 1);
+		ImagePlus mvd = IJ.createImage("", "RGB white", imp.getWidth(), imp.getHeight(), 1);
 		int[] crop_x = {0, imp.getWidth()};
 		int[] crop_y = {0, imp.getHeight()};
 
@@ -158,15 +184,24 @@ public class Eval {
 		}else {
 			crop_y[0] = crop_y[0] -y;
 		}
+		IJ.log("getmvimp s crop x y is");
+		ms.ints2ijlog(crop_x);
+		ms.ints2ijlog(crop_y);
+		int[] param = {x, y};
+		IJ.log("x, y is");
+		ms.ints2ijlog(param);
+
 
 		ipp.setRoi(crop_x[0], crop_y[0], crop_x[1], crop_y[1]);
 		Roi roi = new ImageRoi(x, y, ipp.crop());
-
+		//Roi roi = new ImageRoi(x+this.add_margin, y+this.add_margin, ipp.crop());
 		Overlay overlayList = new Overlay();
         overlayList.add(roi);
 
         mvd.setOverlay(overlayList);
         mvd = mvd.flatten();
+//        mvd.show();
+
 
         IJ.run(mvd, "Rotate... ", "angle="+String.valueOf(theta)+" grid=1 interpolation=Bilinear fill");
         mvd = mvd.flatten();

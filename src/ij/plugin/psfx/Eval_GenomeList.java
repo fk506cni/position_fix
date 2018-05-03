@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import ij.ImagePlus;
 
 public class Eval_GenomeList {
-	private Eval ev;
+	protected Eval ev;
+	protected ImagePlus ref = new ImagePlus();
+	protected ImagePlus tag = new ImagePlus();
+
 	private Args_Getter agt;
 
 
@@ -13,12 +16,14 @@ public class Eval_GenomeList {
 		ev = new Eval();
 		ev.setRef(refATimp);
 		ev.setTag(tagATimp);
-
+		this.ref = refATimp;
+		this.tag = tagATimp;
 	}
 
 	public ArrayList<Genome_ga> evalGenomeList(ArrayList<Genome_ga> gl){
 		int glsize = gl.size();
 		double score = 0.0;
+
 		for(int i = 0;i<glsize;i++) {
 			Genome_ga gi = gl.get(i);
 			if(gi.getEval()==0.0) {
