@@ -67,6 +67,7 @@ public class Args_Getter implements PlugIn{
 
 		parseArgs();
 		checkSysOs();
+		checkArgs();
 	}
 
 	public void parseArgs() {
@@ -124,6 +125,10 @@ public class Args_Getter implements PlugIn{
 		IJ.log(this.ref_image_string+": is reference image.");
 	}
 
+	public void setRef_AT_method(String ref_AT_method) {
+		this.ref_AT_method = ref_AT_method;
+	}
+
 	public void setTagImg(String tag_img_path) {
 		this.tag_image_string = tag_img_path;
 		this.tag_image_file = new File(this.tag_image_string);
@@ -136,8 +141,57 @@ public class Args_Getter implements PlugIn{
 		IJ.log(this.output_dir+" is output directory");
 	}
 
+	public void setTag_AT_method(String tag_AT_method) {
+		this.tag_AT_method = tag_AT_method;
+	}
+
+	public void setSearchL(int searchL) {
+		this.searchL = searchL;
+	}
+
+	public void setRoundL(double roundL) {
+		this.roundL = roundL;
+	}
+
+	public void setRoundR(double roundR) {
+		this.roundR = roundR;
+	}
+
+	public void setResult_prefix(String result_prefix) {
+		this.result_prefix = result_prefix;
+	}
+
+	public void setSave_format(String save_format) {
+		this.save_format = save_format;
+	}
+
+	public void setOutput_dir(String output_dir) {
+		this.output_dir = output_dir;
+		this.output_dir_asfile = new File(this.output_dir);
+	}
+
+	public void setRandom_seed(int random_seed) {
+		this.random_seed = random_seed;
+	}
+
+	public void setCheckGAparam(boolean checkGAparam) {
+		this.checkGAparam = checkGAparam;
+	}
+
+
 	public void setArgsViaCLmethod() {
 		//not impled...yet
+	}
+
+	public void checkArgs() {
+		if(this.roundL >0) {
+			IJ.log("roundL should be < 0");
+			return;
+		}
+		if(this.roundR<0) {
+			IJ.log("roundR should be >0");
+			return;
+		}
 	}
 
 	public void checkSysOs() {

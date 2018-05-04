@@ -14,6 +14,8 @@ public class Mode_Manager {
 		if(mode == "one2one") {
 			Process_manager prm = new Process_manager();
 			prm.main();
+		}else if(mode =="one2multi") {
+
 		}
 	}
 

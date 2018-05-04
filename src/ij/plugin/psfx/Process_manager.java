@@ -13,27 +13,31 @@ public class Process_manager {
 	private Imps_Save isv = new Imps_Save();
 	private GAargs_Getter gat = new GAargs_Getter();
 
-	public void main() {
-		IJ.run("Colors...", "foreground=black background=black selection=black");
+	public void argsget() {
 		IJ.log("getting args...");
 		this.agt.getArgsViaGUI();
 
 		if(agt.getGAtune()) {
 			gat.getGAargViaGUI();
 		}
+	}
 
-
+	public void prepareATimps() {
+		IJ.run("Colors...", "foreground=black background=black selection=black");
 		this.bc.setArgs(this.agt);
 		this.bc.prepareInfo();
+	}
 
+	public void prepareCentimps() {
 		this.pat.setBinCent(this.bc);
 		this.pat.setAddMargin(agt.getAddMargin());
 		this.pat.FixImp();
+	}
 
+	public void after() {
 		this.isv.setAGT(this.agt);
 		this.isv.saveImps(this.pat.getFxRefImp(), "_ref_");
 		this.isv.saveImps(this.pat.getFxTagImp(), "_tag_");
-
 //		this.cim.setRefImp(pat.getFxRefImp());
 //		this.cim.setTagImp(pat.getFxTagImp());
 //		cim.comp2imp();
@@ -60,7 +64,14 @@ public class Process_manager {
 		this.ft.main();
 
 		this.isv.saveImps(ft.getFxTagImp(), "final_tag");
-		IJ.log("process completed.");
+		IJ.log("one2one process done.");
+	}
+
+	public void main() {
+		argsget();
+		prepareATimps();
+		prepareCentimps();
+		after();
 	}
 
 }

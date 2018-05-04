@@ -42,6 +42,7 @@ public class Args_Getter12m extends Args_Getter{
 
 		parseArgs();
 		checkSysOs();
+		checkArgs();
 	}
 
 	@Override
@@ -100,7 +101,21 @@ public class Args_Getter12m extends Args_Getter{
 
 	}
 
+	public File[] getTargetFiles() {
+		return this.tag_files;
+	}
 
+	public String[] getTargetWords() {
+		return this.tag_filewords;
+	}
+
+	public int getTargetSize() {
+		return this.target_number;
+	}
+
+	public void createAGT1() {
+
+	}
 
 
 }
