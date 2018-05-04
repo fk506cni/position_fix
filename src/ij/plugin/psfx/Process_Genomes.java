@@ -28,6 +28,7 @@ public class Process_Genomes {
 	private double carry_over_rate = 0.5;
 
 	private double individual_mutation_rate = 0.01;
+	private double perturbation_base = 100.0;
 	private double genome_mutation_rate= 0.01;
 	private int process_generation=10;
 
@@ -53,6 +54,7 @@ public class Process_Genomes {
 			double invader_genome_rate,
 			double carry_over_rate,
 			double individual_mutation_rate,
+			double perturbation_base,
 			double genome_mutation_rate,
 			int process_generation
 			) {
@@ -61,6 +63,7 @@ public class Process_Genomes {
 		this.invader_genom_rate = invader_genome_rate;
 		this.carry_over_rate = carry_over_rate;
 		this.individual_mutation_rate = individual_mutation_rate;
+		this.perturbation_base = perturbation_base;
 		this.genome_mutation_rate = genome_mutation_rate;
 		this.process_generation = process_generation;
 	}
@@ -259,9 +262,9 @@ public class Process_Genomes {
 
 		//perturbation
 		if(this.rand.nextDouble() < this.individual_mutation_rate) {
-			x = (int)(x+ xl*(100.0+this.rand.nextGaussian())/100);
+			x = (int)(x+ xl*(perturbation_base+this.rand.nextGaussian())/perturbation_base);
 			y = (int)(y+ yl*(100.0+this.rand.nextGaussian())/100);
-			theta = theta + thel*(100.0 + this.rand.nextGaussian())/100;
+			theta = theta + thel*(perturbation_base + this.rand.nextGaussian())/perturbation_base;
 			this.perturbation_count++;
 		}
 
@@ -326,13 +329,14 @@ public class Process_Genomes {
 			progeny.add(mutate1Genome(child));
 		}
 
-		invaders = evg.evalGenomeList(invaders);
-		progeny = evg.evalGenomeList(progeny);
+//		invaders = evg.evalGenomeList(invaders);
+//		progeny = evg.evalGenomeList(progeny);
 
 		ArrayList<Genome_ga> new_gen = new ArrayList<Genome_ga>();
-		new_gen.addAll(parents);
 		new_gen.addAll(invaders);
 		new_gen.addAll(progeny);
+		new_gen = evg.evalGenomeList(new_gen);
+		new_gen.addAll(parents);
 
 		IJ.log("total perturbation in this generation creation: "+String.valueOf(this.perturbation_count));
 		IJ.log("total catastrophe in this generation creation: "+String.valueOf(this.catastrophe_count));

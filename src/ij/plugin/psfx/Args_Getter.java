@@ -204,4 +204,8 @@ public class Args_Getter implements PlugIn{
 	public int getAddMargin() {
 		return this.add_margin;
 	}
+
+	public boolean getGAtune() {
+		return this.checkGAparam;
+	}
 }

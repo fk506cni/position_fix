@@ -16,8 +16,7 @@ public class Genomic_Algorithm {
 	private Imps_Save isv = new Imps_Save();
 
 	private Mscs_ ms = new Mscs_();
-
-
+	private GAargs_Getter gat =new GAargs_Getter();
 
 	private int random_seed= 114514;
 	private ImagePlus ref;
@@ -36,6 +35,7 @@ public class Genomic_Algorithm {
 	double invader_genom_rate = 0.01;
 	private double carry_over_rate = 0.5;
 	private double individual_mutation_rate = 0.03;
+	private double perturbation_base = 100;
 	private double genome_mutation_rate= 0.01;
 	private int process_generation=10;
 
@@ -117,6 +117,7 @@ public class Genomic_Algorithm {
 				this.preserve_parent_rate,
 				this.invader_genom_rate, this.carry_over_rate,
 				this.individual_mutation_rate,
+				this.perturbation_base,
 				this.genome_mutation_rate,
 				this.process_generation);
 //		this.prg.setEval(this.ev);
@@ -126,6 +127,29 @@ public class Genomic_Algorithm {
 
 
 	public void main() {
+		gat.setDefault(this.max_population,
+				this.preserve_parent_rate,
+				this.invader_genom_rate,
+				this.carry_over_rate,
+				this.individual_mutation_rate,
+				this.perturbation_base,
+				this.genome_mutation_rate,
+				this.process_generation);
+
+		if(agt.getGAtune()) {
+			gat.getGAargViaGUI();
+		}
+		//returning def values
+		this.max_population = gat.getMaxPop();
+		this.preserve_parent_rate = gat.getPrsvPrnt();
+		this.invader_genom_rate = gat.getInvGenm();
+		this.carry_over_rate = gat.getCarryOv();
+		this.individual_mutation_rate = gat.getPertRate();
+		this.perturbation_base = gat.getPertBase();
+		this.genome_mutation_rate = gat.getCatasRate();
+		this.process_generation = gat.getProcGenNum();
+
+
 		parseParam();
 		System.gc();
 		IJ.run("Colors...", "foreground=black background=black selection=black");
