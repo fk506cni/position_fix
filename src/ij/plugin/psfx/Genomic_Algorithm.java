@@ -16,7 +16,7 @@ public class Genomic_Algorithm {
 	private Imps_Save isv = new Imps_Save();
 
 	private Mscs_ ms = new Mscs_();
-	private GAargs_Getter gat =new GAargs_Getter();
+	private GAargs_Getter gat;
 
 	private int random_seed= 114514;
 	private ImagePlus ref;
@@ -65,6 +65,10 @@ public class Genomic_Algorithm {
 		this.tag = tag;
 	}
 
+	public void setGAargsGetter(GAargs_Getter gat) {
+		this.gat =gat;
+	}
+
 	public void parseParam() {
 		int L = this.agt.getSearchL();
 		int wid = this.ref.getWidth();
@@ -104,9 +108,6 @@ public class Genomic_Algorithm {
 		IJ.log("search theta range is");
 		ms.db2ijlog(this.theta_range);
 
-		this.rand = new SecureRandom();
-		this.rand.setSeed((long)this.random_seed);
-
 		this.ev = new Eval();
 		this.ev.setRef(this.ref);
 		this.ev.setTag(this.tag);
@@ -127,7 +128,7 @@ public class Genomic_Algorithm {
 
 
 	public void main() {
-		gat.setDefault(this.max_population,
+/*		gat.setDefault(this.max_population,
 				this.preserve_parent_rate,
 				this.invader_genom_rate,
 				this.carry_over_rate,
@@ -139,6 +140,7 @@ public class Genomic_Algorithm {
 		if(agt.getGAtune()) {
 			gat.getGAargViaGUI();
 		}
+		*/
 		//returning def values
 		this.max_population = gat.getMaxPop();
 		this.preserve_parent_rate = gat.getPrsvPrnt();

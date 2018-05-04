@@ -1,13 +1,16 @@
 import ij.IJ;
 import ij.plugin.PlugIn;
-import ij.plugin.psfx.Process_manager;
+import ij.plugin.psfx.Mode_Manager;
 
 public class PositionFix_ implements PlugIn{
 	public void run (String arg) {
-		String plg_ver = "0.876";
+		String plg_ver = "0.9";
 		IJ.log("starting PosFx plugin ver" +plg_ver);
 
-		Process_manager pm = new Process_manager();
-		pm.main();
+		Mode_Manager mm = new Mode_Manager();
+		mm.main();
+
+	//	Process_manager pm = new Process_manager();
+	//	pm.main();
 	}
 }

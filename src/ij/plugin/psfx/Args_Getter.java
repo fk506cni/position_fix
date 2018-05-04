@@ -8,33 +8,33 @@ import ij.IJ;
 import ij.plugin.PlugIn;
 
 public class Args_Getter implements PlugIn{
-	private String ref_image_string="D:\\pf_test\\ref.png";
-	private File ref_image_file = new File("D:\\pf_test\\ref.png");
+	protected String ref_image_string="D:\\pf_test\\ref.png";
+	protected File ref_image_file = new File("D:\\pf_test\\ref.png");
 	private String tag_image_string="D:\\pf_test\\tag.png";
 	private File tag_image_file = new File("D:\\pf_test\\tag.png");
 
 	private String tag_tag;
 
-	private String[] AT_choice={"Default","Huang","Huang2","Intermodes","IsoData","Li","MaxEntropy",
+	protected String[] AT_choice={"Default","Huang","Huang2","Intermodes","IsoData","Li","MaxEntropy",
   		  "Mean","MinError(I)","Minimum","Moments","Otsu","Percentile","RenyiEntropy",
   		  "Shanbhag","Triangle","Yen"};
-	private String ref_AT_method = "Default";
-	private String tag_AT_method = "Default";
-	private double roundL= -90;
-	private double roundR= 90;
+	protected String ref_AT_method = "Default";
+	protected String tag_AT_method = "Default";
+	protected double roundL= -90;
+	protected double roundR= 90;
 	private int round_gradient;
-	private int searchL=200;
+	protected int searchL=200;
 
-	private String output_dir="D:\\pf_test\\";
-	private File output_dir_asfile = new File(output_dir);
-	private String[] save_formats =  {"ZIP","PNG","Jpeg","Tiff","Gif"};
-	private String save_format = "ZIP";
-	private String result_prefix ="_corected_";
-	private int random_seed = 114514;
-	private boolean checkGAparam = false;
+	protected String output_dir="D:\\pf_test\\";
+	protected File output_dir_asfile = new File(output_dir);
+	protected String[] save_formats =  {"ZIP","PNG","Jpeg","Tiff","Gif"};
+	protected String save_format = "ZIP";
+	protected String result_prefix ="_corected_";
+	protected int random_seed = 114514;
+	protected boolean checkGAparam = false;
 	private int add_margin = 150;
 
-	private GenericDialogPlus gdp = new GenericDialogPlus("PF entry");
+	protected GenericDialogPlus gdp = new GenericDialogPlus("PF entry");
 
 	private boolean isWin;
 
@@ -57,7 +57,7 @@ public class Args_Getter implements PlugIn{
 
 		gdp.addNumericField("random_seed", this.random_seed, 0);
 
-		gdp.addCheckbox("choice GA parameters", false);
+		gdp.addCheckbox("tune GA parameters", false);
 
 		gdp.showDialog();
 

@@ -11,11 +11,17 @@ public class Process_manager {
 	private Genomic_Algorithm ga = new Genomic_Algorithm();
 	private Fix_Tag ft = new Fix_Tag();
 	private Imps_Save isv = new Imps_Save();
+	private GAargs_Getter gat = new GAargs_Getter();
 
 	public void main() {
 		IJ.run("Colors...", "foreground=black background=black selection=black");
 		IJ.log("getting args...");
 		this.agt.getArgsViaGUI();
+
+		if(agt.getGAtune()) {
+			gat.getGAargViaGUI();
+		}
+
 
 		this.bc.setArgs(this.agt);
 		this.bc.prepareInfo();
@@ -44,6 +50,7 @@ public class Process_manager {
 
 		this.ga.setAGT(this.agt);
 		this.ga.setPAM(this.pat);
+		this.ga.setGAargsGetter(gat);
 		this.ga.setRefTag(this.pat.getFxRefImp(), this.pat.getFxTagImp());
 		this.ga.main();
 
@@ -53,6 +60,7 @@ public class Process_manager {
 		this.ft.main();
 
 		this.isv.saveImps(ft.getFxTagImp(), "final_tag");
+		IJ.log("process completed.");
 	}
 
 }

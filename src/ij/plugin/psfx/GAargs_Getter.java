@@ -4,7 +4,7 @@ import ij.IJ;
 
 public class GAargs_Getter {
 	//GA parameter
-	private int max_population =100;
+	private int max_population =300;
 
 	//rate of preserved parents;
 	double preserve_parent_rate =0.4;
@@ -12,7 +12,7 @@ public class GAargs_Getter {
 	//rate of invader genome;
 	double invader_genom_rate = 0.01;
 	private double carry_over_rate = 0.5;
-	private double perturbation_rate = 0.03;
+	private double perturbation_rate = 0.04;
 	private double perturbation_base=100.0;
 	private double catastrophe_rate= 0.01;
 	private int process_generation=3;
@@ -40,12 +40,12 @@ public class GAargs_Getter {
 	public void getGAargViaGUI() {
 		GenericDialogPlus gdp = this.gdp;
 		gdp.addNumericField("max population(int)", this.max_population, 0);
-		gdp.addNumericField("preserve_parents_rate", this.preserve_parent_rate, 0);
-		gdp.addNumericField("invader_genome_rate", this.invader_genom_rate, 0);
-		gdp.addNumericField("carry_over_rate", this.carry_over_rate, 0);
-		gdp.addNumericField("perturbation_rate", this.perturbation_rate, 0);
-		gdp.addNumericField("perturbation_base", this.perturbation_base, 0);
-		gdp.addNumericField("catastrophe_rate", this.catastrophe_rate, 0);
+		gdp.addNumericField("preserve_parents_rate", this.preserve_parent_rate, 2);
+		gdp.addNumericField("invader_genome_rate", this.invader_genom_rate, 2);
+		gdp.addNumericField("carry_over_rate", this.carry_over_rate, 2);
+		gdp.addNumericField("perturbation_rate", this.perturbation_rate, 2);
+		gdp.addNumericField("perturbation_base", this.perturbation_base, 2);
+		gdp.addNumericField("catastrophe_rate", this.catastrophe_rate, 2);
 		gdp.addNumericField("process_generations", this.process_generation, 0);
 
 		gdp.showDialog();

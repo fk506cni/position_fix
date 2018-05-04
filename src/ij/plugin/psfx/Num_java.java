@@ -79,4 +79,9 @@ public class Num_java {
 		return sd;
 	}
 
+	public double int2med(int[] ints) {
+		double med = 0.0;
+
+		return med;
+	}
 }

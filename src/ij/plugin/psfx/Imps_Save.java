@@ -28,5 +28,7 @@ public class Imps_Save {
 	}
 
 
+	public void saveLog(String mark) {
 
+	}
 }
