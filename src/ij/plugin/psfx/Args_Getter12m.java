@@ -12,6 +12,8 @@ public class Args_Getter12m extends Args_Getter{
 	private String[] tag_filewords;
 	private int target_number;
 
+	private Args_Getter ag0 = new Args_Getter();
+
 	@Override
 	public void getArgsViaGUI() {
 		GenericDialogPlus gdp = this.gdp;
@@ -113,8 +115,29 @@ public class Args_Getter12m extends Args_Getter{
 		return this.target_number;
 	}
 
-	public void createAGT1() {
+	public Args_Getter createAGT0() {
+		Args_Getter ag0 = new Args_Getter();
+		ag0.setRefImg(this.ref_image_string);
+		ag0.setRef_AT_method(ref_AT_method);
 
+		//tag image is null in this phase.
+
+		ag0.setTag_AT_method(tag_dir);
+		ag0.setSearchL(searchL);
+		ag0.setRoundL(roundL);
+		ag0.setRoundR(roundR);
+		ag0.setResult_prefix(result_prefix);
+		ag0.setSave_format(save_format);
+		ag0.setOutput_dir(output_dir);
+		ag0.setRandom_seed(random_seed);
+		ag0.setCheckGAparam(checkGAparam);
+
+		return ag0;
+	}
+
+	public Args_Getter getAGT0() {
+		Args_Getter ag0 = createAGT0();
+		return ag0;
 	}
 
 

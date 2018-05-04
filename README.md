@@ -17,6 +17,32 @@ this fitting is by mimizing Xor area about binalized image by auto thresholding 
 
 Fitting algorism is modified Genetic Algorithm(GA).
 
+Process mode
+============
+
+## one2one
+
+fixation one target file as one reference file.
+
+## one2multi
+
+(not implemented yet)
+
+fixation multi target file in one directory against one image file.
+
+## sequential fix
+
+(not implemented yet)
+
+sequential fixation. After one fixation, target fix image will be the reference in next fixation.
+
+## sequential pair
+
+(not implemented yet)
+
+pair fixation. Files in Reference directory and Target directry will be fixed in order.
+
+
 Args
 ============
 
@@ -28,13 +54,59 @@ reference image. This is used to fix target image. This image file is not modifi
 
 image file you want to fix position and axis.
 
+## AT method
+
+This plugin used binalized images to make xor image between two images.
+
+You should choice proper method as shape of object chozen properly.
+
+If selection is not proper, change method.
+
+See Autothresholdin documentation. https://imagej.net/Auto_Threshold
+
+## searchL
+
+This plugin search optimal position(x and y) and slope(theta) by GA.
+
+Searching area in position is - searchL ~ +searchL from position of center of mass matching.
+
+## RoundL and RoundR
+
+Searching area in slope is RoundL ~ RoundR from original slope of target image.
+
+## SaveFormat: f
+
+image saving format.
+
+Equal to SaveAs(f).
+
+If you use Jpeg, quality score should be specified by EDIT > OPTION > INPUT/OUTPUT.
+
+ImageJ's principle does not recommend you to use Jpeg.
+
+See document
+
+https://imagej.net/Principles
+
+## Output dir
+
+Directory where several files saved.
+
+## Random seed
+
+Seed value will be used for SecuareRandom class.
+
+Default is 114514. "IIYO, KOIYO!"
+
+## Check GA param
+
+If you want to tune GA paramters. Check here and tune in next dialog.
+
+# GA parameters
+
+## max population: 300
 
 
-
-
-## GA parameters
-
-### max population: xxx
 
 ### process generation : xx
 

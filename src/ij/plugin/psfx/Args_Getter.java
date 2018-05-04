@@ -135,11 +135,12 @@ public class Args_Getter implements PlugIn{
 		IJ.log(this.tag_image_string+": is target image.");
 	}
 
-	public void setOutputDir(String output_dir) {
+/*	public void setOutputDir(String output_dir) {
 		this.output_dir = output_dir;
 		this.output_dir_asfile = new File(this.output_dir);
 		IJ.log(this.output_dir+" is output directory");
 	}
+*/
 
 	public void setTag_AT_method(String tag_AT_method) {
 		this.tag_AT_method = tag_AT_method;
