@@ -100,7 +100,7 @@ Directory where several files saved.
 
 Seed value will be used for SecuareRandom class.
 
-Default is 114514. "IIYO, KOIYO!"
+Default is 114514. "IIYO! KOIYO!"
 
 ## Check GA param
 
@@ -108,11 +108,19 @@ If you want to tune GA paramters. Check here and tune in next dialog.
 
 # GA parameters
 
-## max population: 300
+### max population: 300
 
+number of genome(set of variables) in one generation.
 
+Genomes will be given evaluational values and the value is used to selection.
 
-### process generation : xx
+### process generation : 3
+
+processing generation.
+
+This number is times to make new generation.
+
+If your result is not fixed propery enough, make max pop and proc gen more large.
 
 ### encoding: real encoding(position x, y is int, and axis theta is double)
 
@@ -120,13 +128,33 @@ If you want to tune GA paramters. Check here and tune in next dialog.
 
 ### cross over: uniform cross over or random mix of parents' genes.
 
+progeny gene value is made from parents' genes.
+
+new value is random choice of parents'value(carry over) or random mixuture of ones.
+
+carry over rate is rate of randome choice. if it is 0, new value will be completely random mixuture.
+
 ### mutation:
 
-gene_tabulation:(100.0+this.rand.nextGaussian())/100)*range
+mutation is two pattern.
 
-genome_mutation: new val in range from uniform distribution.
+perturbation is small change.
+
+this is nextGaussian()) / perturbation\_base * variable_range
+
+default perturbation base is 100.0
+
+
+catastroph is big change
+
+this is replace of randome new value.
 
 ### preserved parents rate
+
+parents with low evalation value will be removed in next generation.
+
+
+
 
 ### invaders rate
 
