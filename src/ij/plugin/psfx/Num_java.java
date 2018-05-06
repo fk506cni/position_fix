@@ -1,5 +1,7 @@
 package ij.plugin.psfx;
 
+import java.io.File;
+
 //many function to process numerics
 
 public class Num_java {
@@ -83,5 +85,14 @@ public class Num_java {
 		double med = 0.0;
 
 		return med;
+	}
+
+	public File[] fileSortByName(File[] files) {
+		java.util.Arrays.sort(files, new java.util.Comparator<File>() {
+			public int compare(File file1, File file2) {
+				return file1.getName().compareTo(file2.getName());
+			}
+		});
+		return files;
 	}
 }

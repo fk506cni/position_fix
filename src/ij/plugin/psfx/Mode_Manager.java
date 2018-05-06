@@ -15,8 +15,18 @@ public class Mode_Manager {
 			Process_manager prm = new Process_manager();
 			prm.main();
 		}else if(mode =="one2multi") {
+			Process_man_one2multi p2m = new Process_man_one2multi();
+			p2m.main();
+		}else if(mode =="SequentialFix") {
+			Process_man_SeqFx psf = new Process_man_SeqFx();
 
+		}else if(mode =="SequentialPair") {
+
+		}else {
+			IJ.log("unkown mode specified.");
+			return;
 		}
 	}
 
 }
+//,"SequentialPair"

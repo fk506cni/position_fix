@@ -26,7 +26,7 @@ fixation one target file as one reference file.
 
 ## one2multi
 
-(not implemented yet)
+(implemented)
 
 fixation multi target file in one directory against one image file.
 
@@ -35,6 +35,10 @@ fixation multi target file in one directory against one image file.
 (not implemented yet)
 
 sequential fixation. After one fixation, target fix image will be the reference in next fixation.
+
+file names are used as index of order of fixation.
+
+1st file in directory is 1st reference.
 
 ## sequential pair
 

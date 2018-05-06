@@ -55,6 +55,14 @@ public class Fix_Tag {
 		this.dt = best1.getGeneTheta();
 	}
 
+/*	public void makeBestBinImp(Genome_ga best1, ImagePlus binImp) {
+		IJ.run("Colors...", "foreground=black background=black selection=black");
+		int x = best1.getGeneX();
+		int y = best1.getGeneY();
+		double t = best1.getGeneTheta();
+
+	}
+*/
 	public void main() {
 		//tag.show();
 		//1st tag centlization
@@ -72,7 +80,7 @@ public class Fix_Tag {
 		//3rd re crop
 		ImagePlus fx3 = this.pat.reverseImpOut(fx2, this.pat.ref_centM, this.pat.ref_size);
 		fx3.setTitle("crop outed");
-		fx3.show();
+//		fx3.show();
 		this.fx_result = fx3;
 //		ImagePlus fx3 = this.pat.reverseImpOut(fx2, this.pat.ref_centM, this.pat.ref_size);
 //		fx3.show();

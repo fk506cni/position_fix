@@ -36,6 +36,10 @@ public class prepareATimp_{
 		this.add_margin = add_margin;
 	}
 
+	public void overrideRefFxImp(ImagePlus newRef) {
+		this.refFXimp = newRef;
+	}
+
 	public void FixImp() {
 		ImagePlus refFx = new ImagePlus();
 		ref_size = bc.getRefSize();
@@ -163,6 +167,10 @@ public class prepareATimp_{
         imp.setOverlay(overlayList);
 		return imp;
 	}
+
+
+
+
 
 	public ImagePlus reverseImpOut(ImagePlus imp,  int[] ref_centM, int[] ref_size) {
 		IJ.log("reverse imp out.");

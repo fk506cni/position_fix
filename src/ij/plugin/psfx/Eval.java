@@ -107,6 +107,18 @@ public class Eval {
 		return cim.getMergedImp();
 	}
 
+	public ImagePlus getMvImp(Genome_ga ga1) {
+		IJ.run("Colors...", "foreground=black background=black selection=black");
+		int x = ga1.getGeneX();
+		int y = ga1.getGeneY();
+		double t = ga1.getGeneTheta();
+
+		ImagePlus mv_tag = makeComp(x, y, t);
+
+		return mv_tag;
+	}
+
+
 	public ImagePlus makeComp(int x, int y, double theta) {
 //		this.ip = this.tag.duplicate().getProcessor();
 		ImagePlus tag_tmp = this.dup.run(this.tag);

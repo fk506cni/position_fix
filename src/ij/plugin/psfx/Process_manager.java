@@ -1,17 +1,20 @@
 package ij.plugin.psfx;
 
 import ij.IJ;
+import ij.ImagePlus;
 
 public class Process_manager {
-	private Args_Getter agt = new Args_Getter();
-	private BinCent_Info bc = new BinCent_Info();
-	private prepareATimp_ pat = new prepareATimp_();
-	private compare_Imps cim = new compare_Imps();
-	private Eval ev = new Eval();
-	private Genomic_Algorithm ga = new Genomic_Algorithm();
-	private Fix_Tag ft = new Fix_Tag();
-	private Imps_Save isv = new Imps_Save();
-	private GAargs_Getter gat = new GAargs_Getter();
+	protected Args_Getter agt = new Args_Getter();
+	protected BinCent_Info bc = new BinCent_Info();
+	protected prepareATimp_ pat = new prepareATimp_();
+	protected compare_Imps cim = new compare_Imps();
+	protected Eval ev = new Eval();
+	protected Genomic_Algorithm ga = new Genomic_Algorithm();
+	protected Fix_Tag ft = new Fix_Tag();
+	protected Imps_Save isv = new Imps_Save();
+	protected GAargs_Getter gat = new GAargs_Getter();
+
+	protected ImagePlus lastTagATimp;
 
 	public void argsget() {
 		IJ.log("getting args...");
@@ -23,6 +26,7 @@ public class Process_manager {
 	}
 
 	public void prepareATimps() {
+		IJ.log("preparing AT imps...");
 		IJ.run("Colors...", "foreground=black background=black selection=black");
 		this.bc.setArgs(this.agt);
 		this.bc.prepareInfo();
@@ -62,9 +66,13 @@ public class Process_manager {
 //		this.ft.setTagImp();
 		this.ft.setBestGenome(this.ga.getLastBest());
 		this.ft.main();
+//		this.ft.getFxTagImp().show();
+
+		//check last best bin
+		lastTagATimp = this.ev.getMvImp(this.ga.getLastBest());
 
 		this.isv.saveImps(ft.getFxTagImp(), "final_tag");
-		IJ.log("one2one process done.");
+
 	}
 
 	public void main() {
@@ -72,6 +80,10 @@ public class Process_manager {
 		prepareATimps();
 		prepareCentimps();
 		after();
+		this.ft.getFxTagImp().show();
+		lastTagATimp.show();
+
+		IJ.log("one2one process done.");
 	}
 
 }

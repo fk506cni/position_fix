@@ -4,16 +4,14 @@ import java.io.File;
 
 import fiji.util.gui.GenericDialogPlus;
 import ij.IJ;
-//import ij.gui.GenericDialog;
-import ij.plugin.PlugIn;
 
-public class Args_Getter implements PlugIn{
+public class Args_Getter{
 	protected String ref_image_string="D:\\pf_test\\ref.png";
 	protected File ref_image_file = new File("D:\\pf_test\\ref.png");
 	private String tag_image_string="D:\\pf_test\\tag.png";
 	private File tag_image_file = new File("D:\\pf_test\\tag.png");
 
-	private String tag_tag;
+	private String tag_tag ="";
 
 	protected String[] AT_choice={"Default","Huang","Huang2","Intermodes","IsoData","Li","MaxEntropy",
   		  "Mean","MinError(I)","Minimum","Moments","Otsu","Percentile","RenyiEntropy",
@@ -22,7 +20,7 @@ public class Args_Getter implements PlugIn{
 	protected String tag_AT_method = "Default";
 	protected double roundL= -90;
 	protected double roundR= 90;
-	private int round_gradient;
+
 	protected int searchL=200;
 
 	protected String output_dir="D:\\pf_test\\";
@@ -132,15 +130,17 @@ public class Args_Getter implements PlugIn{
 	public void setTagImg(String tag_img_path) {
 		this.tag_image_string = tag_img_path;
 		this.tag_image_file = new File(this.tag_image_string);
+		this.tag_tag = this.tag_image_file.getName().replaceAll("\\.[a-z0-9]*$", "");
+
 		IJ.log(this.tag_image_string+": is target image.");
 	}
 
-/*	public void setOutputDir(String output_dir) {
-		this.output_dir = output_dir;
-		this.output_dir_asfile = new File(this.output_dir);
-		IJ.log(this.output_dir+" is output directory");
+	public void setTagImgAsFile(File tag_img_file) {
+		this.tag_image_file = tag_img_file;
+		this.tag_image_string = tag_img_file.getAbsolutePath();
+		this.tag_tag = tag_img_file.getName().replaceAll("\\.[a-z0-9]*$", "");
+		//IJ.log(this.tag_image_string+" is target file in argsGetter");
 	}
-*/
 
 	public void setTag_AT_method(String tag_AT_method) {
 		this.tag_AT_method = tag_AT_method;

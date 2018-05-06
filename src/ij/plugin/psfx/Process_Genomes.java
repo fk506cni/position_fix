@@ -262,9 +262,17 @@ public class Process_Genomes {
 
 		//perturbation
 		if(this.rand.nextDouble() < this.individual_mutation_rate) {
-			x = (int)(x+ xl*(perturbation_base+this.rand.nextGaussian())/perturbation_base);
-			y = (int)(y+ yl*(100.0+this.rand.nextGaussian())/100);
-			theta = theta + thel*(perturbation_base + this.rand.nextGaussian())/perturbation_base;
+			x = (int)((double)x+ xl*(this.rand.nextGaussian())/perturbation_base);
+			this.perturbation_count++;
+		}
+
+		if(this.rand.nextDouble() < this.individual_mutation_rate) {
+			y = (int)((double)y+ yl*(this.rand.nextGaussian())/perturbation_base);
+			this.perturbation_count++;
+		}
+
+		if(this.rand.nextDouble() < this.individual_mutation_rate) {
+			theta = theta + thel*(this.rand.nextGaussian())/perturbation_base;
 			this.perturbation_count++;
 		}
 

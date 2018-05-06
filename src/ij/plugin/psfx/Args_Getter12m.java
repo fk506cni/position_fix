@@ -13,6 +13,7 @@ public class Args_Getter12m extends Args_Getter{
 	private int target_number;
 
 	private Args_Getter ag0 = new Args_Getter();
+	private Num_java nj = new Num_java();
 
 	@Override
 	public void getArgsViaGUI() {
@@ -63,6 +64,7 @@ public class Args_Getter12m extends Args_Getter{
 		IJ.log(this.tag_dir_asFile.getPath()+": target directory.");
 
 		this.tag_files = tag_dir_asFile.listFiles();
+		this.tag_files = nj.fileSortByName(this.tag_files);
 		this.tag_filewords = new String[this.tag_files.length];
 		this.target_number = this.tag_files.length;
 
@@ -122,7 +124,7 @@ public class Args_Getter12m extends Args_Getter{
 
 		//tag image is null in this phase.
 
-		ag0.setTag_AT_method(tag_dir);
+		ag0.setTag_AT_method(tag_AT_method);
 		ag0.setSearchL(searchL);
 		ag0.setRoundL(roundL);
 		ag0.setRoundR(roundR);
