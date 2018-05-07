@@ -72,6 +72,7 @@ public class Process_manager {
 		lastTagATimp = this.ev.getMvImp(this.ga.getLastBest());
 
 		this.isv.saveImps(ft.getFxTagImp(), "final_tag");
+		this.isv.saveLog("");
 
 
 	}

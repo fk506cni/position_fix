@@ -63,6 +63,7 @@ public class Args_Getter_SeqPair extends Args_Getter{
 		this.ref_dir_asFile = new File(this.ref_dir);
 		IJ.log(this.ref_dir_asFile.getAbsolutePath()+": ref directory.");
 		this.ref_files = this.ref_dir_asFile.listFiles();
+		this.ref_files = nj.fileSortByName(this.ref_files);
 		IJ.log("ref files are below.");
 		for(int i=0; i<this.ref_files.length;i++) {
 			IJ.log("path: "+ref_files[i].getAbsolutePath());

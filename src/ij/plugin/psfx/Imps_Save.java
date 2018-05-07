@@ -29,6 +29,7 @@ public class Imps_Save {
 
 
 	public void saveLog(String mark) {
+		IJ.saveAs("Text", this.output_dir.getAbsolutePath()+File.separator+mark+"_Log.txt");
 
 	}
 }
