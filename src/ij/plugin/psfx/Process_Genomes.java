@@ -393,20 +393,30 @@ public class Process_Genomes {
 
 		String xa = String.valueOf(nj.ints2avg(xs));
 		String xv = String.valueOf(nj.ints2sd(xs));
+		String xmd = String.valueOf(nj.ints2med(xs));
+		String xma = String.valueOf(nj.ints2mad(xs));
 		IJ.log("geneX avg:"+xa+". sd:"+xv);
+		IJ.log("geneX med:"+xmd+". mad:"+xma);
 
 		String ya = String.valueOf(nj.ints2avg(ys));
 		String yv = String.valueOf(nj.ints2sd(ys));
+		String ymd = String.valueOf(nj.ints2med(ys));
+		String yma = String.valueOf(nj.ints2mad(ys));
 		IJ.log("geneY avg:"+ya+". sd:"+yv);
+		IJ.log("geneY med:"+ymd+". mad:"+yma);
 
 		String ta = String.valueOf(nj.doubles2avg(ths));
 		String tv = String.valueOf(nj.doubles2sd(ths));
+		String tmd = String.valueOf(nj.dbs2med(ths));
+		String tma = String.valueOf(nj.dbs2mad(ths));
 		IJ.log("geneTheta avg:"+ta+". sd:"+tv);
+		IJ.log("geneTheta med:"+tmd+". mad:"+tma);
 
 		String ea = String.valueOf(nj.doubles2avg(evals));
 		String ev = String.valueOf(nj.doubles2sd(evals));
+		String emd = String.valueOf(nj.dbs2med(evals));
+		String ema = String.valueOf(nj.dbs2mad(evals));
 		IJ.log("Eval_val avg:"+ea+". sd:"+ev);
-
-
+		IJ.log("Eval val med:"+emd+". mad:"+ema);
 	}
 }

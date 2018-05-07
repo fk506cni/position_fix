@@ -1,6 +1,7 @@
 package ij.plugin.psfx;
 
 import java.io.File;
+import java.util.Arrays;
 
 import ij.IJ;
 
@@ -102,35 +103,70 @@ public class Num_java {
 
 
 
-	public double int2med(int[] ints) {
+
+	public double ints2med(int[] ints) {
 		double med = 0.0;
 		double[] dbs = ints2dbs(ints);
+		Arrays.sort(dbs);
 
 		//pre filtering.
 		if(ints.length==1) {
-			return ints[0];
+			return (double)ints[0];
 		}else if(ints.length==0) {
 			IJ.log("ints array is null!");
 			return 0.0;
 		}
 
 		if(ints.length % 2==1) {
-			med = dbs[(dbs.length+1)/2];
+			med = dbs[(dbs.length+1)/2 -1];
 		}else if(ints.length % 2==0) {
-			med = (dbs[dbs.length/2] + dbs[(dbs.length/2) +1])/2;
+			med = (dbs[dbs.length/2 -1] + dbs[(dbs.length/2)])/2;
 		}
 		return med;
 		}
 
 	public double dbs2med(double[] dbs) {
 		double med =0.0;
+		Arrays.sort(dbs);
 
+		if(dbs.length==1) {
+			return dbs[0];
+		}else if(dbs.length==0) {
+			IJ.log("double array is null!");
+			return 0.0;
+		}
+
+		if(dbs.length % 2 ==1) {
+			med = dbs[(dbs.length-1)/2];
+		}else if(dbs.length % 2 ==0){
+			med = (dbs[dbs.length/2 -1] + dbs[dbs.length/2]) /2;
+		}
+		return med;
 	}
 
 	public double ints2mad(int[] ints) {
 		double mad = 0.0;
+		double med = ints2med(ints);
+		double[] dbs = ints2dbs(ints);
+		Arrays.sort(dbs);
 
+		for(int i=0; i<dbs.length;i++) {
+			dbs[i] = Math.abs(dbs[i] -med);
+		}
 
+		mad = dbs2med(dbs);
+		return mad;
+	}
+
+	public double dbs2mad(double[] dbs) {
+		double mad =0.0;
+		double med = dbs2med(dbs);
+
+		for(int i=0; i<dbs.length;i++) {
+			dbs[i] = Math.abs(dbs[i] -med);
+		}
+
+		mad = dbs2med(dbs);
 		return mad;
 	}
 
