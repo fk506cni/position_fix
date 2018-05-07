@@ -2,6 +2,8 @@ package ij.plugin.psfx;
 
 import java.io.File;
 
+import ij.IJ;
+
 //many function to process numerics
 
 public class Num_java {
@@ -81,10 +83,55 @@ public class Num_java {
 		return sd;
 	}
 
+	public Integer[] ints2Ints(int[] ints) {
+		Integer[] Is = new Integer[ints.length];
+		for(int i=0; i < ints.length;i++) {
+			Is[i] = new Integer(ints[i]);
+		}
+		return Is;
+	}
+
+	public double[] ints2dbs(int[] ints) {
+		double[] dbs = new double[ints.length];
+
+		for(int i=0;i<ints.length;i++) {
+			dbs[i] = (double)ints[i];
+		}
+		return dbs;
+	}
+
+
+
 	public double int2med(int[] ints) {
 		double med = 0.0;
+		double[] dbs = ints2dbs(ints);
 
+		//pre filtering.
+		if(ints.length==1) {
+			return ints[0];
+		}else if(ints.length==0) {
+			IJ.log("ints array is null!");
+			return 0.0;
+		}
+
+		if(ints.length % 2==1) {
+			med = dbs[(dbs.length+1)/2];
+		}else if(ints.length % 2==0) {
+			med = (dbs[dbs.length/2] + dbs[(dbs.length/2) +1])/2;
+		}
 		return med;
+		}
+
+	public double dbs2med(double[] dbs) {
+		double med =0.0;
+
+	}
+
+	public double ints2mad(int[] ints) {
+		double mad = 0.0;
+
+
+		return mad;
 	}
 
 	public File[] fileSortByName(File[] files) {

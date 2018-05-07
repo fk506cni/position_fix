@@ -3,22 +3,22 @@ package ij.plugin.psfx;
 import java.io.File;
 
 import ij.IJ;
-import ij.ImagePlus;
 
-public class Process_man_SeqFx extends Process_manager{
-	private Args_Getter_SeqFx asf = new Args_Getter_SeqFx();
+public class Process_man_SeqPair extends Process_manager{
+
 	private String[] tag_files;
 	private File[] tagfiles_asFile;
 	private int target_number;
-	private ImagePlus nextBinRef;
+
+	private Args_Getter_SeqPair asp = new Args_Getter_SeqPair();
 
 	@Override
 	public void argsget() {
-		asf.getArgsViaGUI();
-		tagfiles_asFile = asf.getTargetFiles();
-		this.target_number = asf.getTargetSize();
+		asp.getArgsViaGUI();
+		tagfiles_asFile = asp.getTargetFiles();
+		this.target_number = asp.getTargetSize();
 
-		if(asf.getGAtune()) {
+		if(asp.getGAtune()) {
 			gat.getGAargViaGUI();
 		}
 	}
@@ -29,23 +29,17 @@ public class Process_man_SeqFx extends Process_manager{
 		IJ.log("begining loop fitting process.");
 
 		for(int i =0; i<tagfiles_asFile.length  -1;i++) {
-			agt = asf.getAGTi(i);
+			agt = asp.getAGTi(i);
 			prepareATimps();
 			prepareCentimps();
-
-			if(i!=0) {
-				this.pat.overrideRefFxImp(nextBinRef);
-			}
 
 			after();
 //			this.ft.getFxTagImp().show();
 //			lastTagATimp.show();
 
-			nextBinRef = this.ev.getMvImp(this.ga.getLastBest());
-
 		}
 
-		IJ.log("Seq Fx loop analysis was done.");
+		IJ.log("Seq Pair loop analysis was done.");
 
 	}
 

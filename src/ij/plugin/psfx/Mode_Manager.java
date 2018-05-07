@@ -21,7 +21,8 @@ public class Mode_Manager {
 			Process_man_SeqFx psf = new Process_man_SeqFx();
 			psf.main();
 		}else if(mode =="SequentialPair") {
-
+			Process_man_SeqPair psp = new Process_man_SeqPair();
+			psp.main();
 		}else {
 			IJ.log("unkown mode specified.");
 			return;
