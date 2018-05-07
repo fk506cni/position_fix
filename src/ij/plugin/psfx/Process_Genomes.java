@@ -145,24 +145,6 @@ public class Process_Genomes {
 	}
 
 
-	/*
-	public int[] getNextPairInts(int lowend, int highend) {
-		//give randome pair nod duplicated
-		//lowend <= pair < highend
-
-		int i1 = (int)((highend - lowend)* this.rand.nextDouble() + lowend);
-		//IJ.log(String.valueOf(i1)+ " is i1");
-		int i2 = i1;
-		while(i1 == i2) {
-			i2 = (int)((highend - lowend)* this.rand.nextDouble() + lowend);
-			//IJ.log(String.valueOf(i2)+ " is i2");
-		}
-
-		int[] result = {i1, i2};
-		return result;
-	}
-	*/
-
 	public int[] getRankBiasPair(int rankers_length) {
 		//return 2 rankers randomly selected but biased by rank
 		//rank is {1, 2, 3, ....rankers_length}.

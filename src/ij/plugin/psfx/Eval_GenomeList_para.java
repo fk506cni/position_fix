@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import ij.IJ;
 
 public class Eval_GenomeList_para extends Eval_GenomeList{
-	static final int threadNum = 2;
+//	static final int threadNum = 2;
 
 	@Override
 	public ArrayList<Genome_ga> evalGenomeList(ArrayList<Genome_ga> gl){
