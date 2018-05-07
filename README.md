@@ -1,17 +1,18 @@
-## PositionFix
+# PositionFix
 
 imageJ plugin for position and round fixation and correction pathological image.
 
-This plugin will enable you to make images from serial section and different stain same position.
+This plugin will enable you to make images from serial section and different stain same position and slope.
 
 ![motive](https://github.com/fk506cni/position_fix/blob/master/pf_motiv.png)
 
-
 ![rironnbusou](https://github.com/fk506cni/position_fix/blob/master/arg_ap.png)
 
-## Outline
+![solution](https://github.com/fk506cni/position_fix/blob/master/solution.png)
 
-this plugin fix position and axis of target image as reference image.
+# Outline
+
+this plugin fix position and slope of target image as reference image.
 
 this fitting is by mimizing Xor area about binalized image by auto thresholding image.
 
@@ -28,11 +29,11 @@ fixation one target file as one reference file.
 
 (implemented)
 
-fixation multi target file in one directory against one image file.
+fixation multi target file in one directory against one reference image file.
 
 ## sequential fix
 
-(not implemented yet)
+(implemented)
 
 sequential fixation. After one fixation, target fix image will be the reference in next fixation.
 
@@ -57,6 +58,14 @@ reference image. This is used to fix target image. This image file is not modifi
 ## tag image
 
 image file you want to fix position and axis.
+
+## ref or tag directory
+
+directory contain referece or target image files.
+
+This plugin process all files in the directory as available image files.
+
+Take care files in the directory and names of them.
 
 ## AT method
 
@@ -106,7 +115,7 @@ Default is 114514. "IIYO! KOIYO!"
 
 If you want to tune GA paramters. Check here and tune in next dialog.
 
-# GA parameters
+## GA parameters(default value) and details.
 
 ### max population: 300
 
@@ -132,18 +141,19 @@ progeny gene value is made from parents' genes.
 
 new value is random choice of parents'value(carry over) or random mixuture of ones.
 
-carry over rate is rate of randome choice. if it is 0, new value will be completely random mixuture.
+carry over rate is rate of chance of randome choice. if it is 0, new value will be completely random mixuture.
 
 ### mutation:
 
-mutation is two pattern.
+mutation has two patterns.
 
 perturbation is small change.
 
-this is nextGaussian()) / perturbation\_base * variable_range
+this is adding below
+
+nextGaussian()) / perturbation\_base * variable_range
 
 default perturbation base is 100.0
-
 
 catastroph is big change
 
@@ -153,15 +163,23 @@ this is replace of randome new value.
 
 parents with low evalation value will be removed in next generation.
 
+this rate is decide parents preserved in next generation.
 
-
+If it is 0, all parents will be removed from next generation.
 
 ### invaders rate
+
+Some of new genomes denovo generated will be included in next generation.
+
+This is random search.
 
 ### children rate
 
 These 3 population will make next generation.
 
+children rate is
+
+1 - preserved_parents - invaders
 
 ## Caution
 
@@ -202,9 +220,9 @@ since 2018.3
 
 ### Image selection
 
-if image file contain selection information. Auto Thresholding is done in selected area.
+If image file contain selection information. Auto Thresholding is done in selected area.
 
-
+If AutoThoresholding not work as you want, please check area selection.
 
 
 Citation
