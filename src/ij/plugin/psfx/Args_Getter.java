@@ -123,6 +123,12 @@ public class Args_Getter{
 		IJ.log(this.ref_image_string+": is reference image.");
 	}
 
+	public void setRefImgAsFile(File ref_img_file) {
+		this.ref_image_string = ref_img_file.getAbsolutePath();
+		this.ref_image_file = ref_img_file;
+		IJ.log(this.ref_image_string+": is reference image.");
+	}
+
 	public void setRef_AT_method(String ref_AT_method) {
 		this.ref_AT_method = ref_AT_method;
 	}

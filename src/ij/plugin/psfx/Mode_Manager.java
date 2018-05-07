@@ -19,7 +19,7 @@ public class Mode_Manager {
 			p2m.main();
 		}else if(mode =="SequentialFix") {
 			Process_man_SeqFx psf = new Process_man_SeqFx();
-
+			psf.main();
 		}else if(mode =="SequentialPair") {
 
 		}else {

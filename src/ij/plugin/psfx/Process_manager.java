@@ -9,7 +9,7 @@ public class Process_manager {
 	protected prepareATimp_ pat = new prepareATimp_();
 	protected compare_Imps cim = new compare_Imps();
 	protected Eval ev = new Eval();
-	protected Genomic_Algorithm ga = new Genomic_Algorithm();
+	protected Genomic_Algorithm ga;
 	protected Fix_Tag ft = new Fix_Tag();
 	protected Imps_Save isv = new Imps_Save();
 	protected GAargs_Getter gat = new GAargs_Getter();
@@ -55,7 +55,7 @@ public class Process_manager {
 		//double res = this.ev.getEval(-100, -100, -5.0);
 		//IJ.log(String.valueOf(res));
 
-
+		this.ga = new Genomic_Algorithm();
 		this.ga.setAGT(this.agt);
 		this.ga.setPAM(this.pat);
 		this.ga.setGAargsGetter(gat);
