@@ -27,29 +27,25 @@ fixation one target file as one reference file.
 
 ## one2multi
 
-(implemented)
-
 fixation multi target file in one directory against one reference image file.
 
 anothoer_dir/
 
-\	└ref0		(only one reference image file)
+	└ref0		(only one reference image file)
 
 target_dir/
 
-\	├tag1		(this is 1st target)
+	├tag1		(this is 1st target)
 
-\	├tag2		(2nd target)
+	├tag2		(2nd target)
 
-\	├tag3		...
+	├tag3		...
 
-\	├tag4
+	├tag4
 
-\	└tag5
+	└tag5
 
 ## sequential fix
-
-(implemented)
 
 sequential fixation. After one fixation, target fix image will be the reference in next fixation.
 
@@ -59,35 +55,43 @@ file names are used as index of order of fixation.
 
 target_dir/
 
-\	├img1		(this is 1st reference)
+	├img1		(this is 1st reference)
 
-\	├img2		(this is 1st target and 2nd reference)
+	├img2		(this is 1st target and 2nd reference)
 
-\	├img3		...
+	├img3		...
 
-\	├img4
+	├img4
 
-\	└img5
+	└img5
 
 
 ## sequential pair
 
-(implemented)
-
 Pair fixation. Files in Reference directory and Target directry will be fixed in order.
 
 reference_dir/
+
 	├ref1		(this is 1st reference)
+
 	├ref2		(2nd reference)
+
 	├ref3		...
+
 	├ref4
+
 	└ref5
 
 target_dir/
+
 	├tag1		(this is 1st target)
+
 	├tag2		(2nd target)
+
 	├tag3		...
+
 	├tag4
+
 	└tag5
 
 Args
