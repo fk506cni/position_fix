@@ -1,22 +1,33 @@
 # PositionFix
 
-imageJ plugin for position and round fixation and correction pathological image.
+imageJ plugin for position and slope fixation about pathological image.
 
 This plugin will enable you to make images from serial section and different stain same position and slope.
 
 ![motive](https://github.com/fk506cni/position_fix/blob/master/pf_motiv.png)
 
-![rironnbusou](https://github.com/fk506cni/position_fix/blob/master/arg_ap.png)
 
-![solution](https://github.com/fk506cni/position_fix/blob/master/solution.png)
+
+![rironnbusou](https://github.com/fk506cni/position_fix/blob/master/arg_ap.png)
 
 # Outline
 
-this plugin fix position and slope of target image as reference image.
+This plugin fix position and slope of target image as reference image.
 
-this fitting is by mimizing Xor area about binalized image by auto thresholding image.
+This fitting is by mimizing XOR area about binalized image by auto thresholded image.
 
 Fitting algorism is modified Genetic Algorithm(GA).
+
+
+Installation
+============
+
+Put PositionFix_.jar in your imageJ plugin directory.
+
+It require genericDialogPlus,and auto thresholding.
+
+Simply, use fiji and put this into fiji's plugin directory.
+
 
 Process mode
 ============
@@ -29,21 +40,21 @@ fixation one target file as one reference file.
 
 fixation multi target file in one directory against one reference image file.
 
-anothoer_dir/
+	anothoer_dir/
 
-	└ref0		(only one reference image file)
+		└ref0		(only one reference image file)
 
-target_dir/
+	target_dir/
 
-	├tag1		(this is 1st target)
+		├tag1		(this is 1st target)
 
-	├tag2		(2nd target)
+		├tag2		(2nd target)
 
-	├tag3		...
+		├tag3		...
 
-	├tag4
+		├tag4
 
-	└tag5
+		└tag5
 
 ## sequential fix
 
@@ -53,46 +64,46 @@ file names are used as index of order of fixation.
 
 1st file in directory is 1st reference.
 
-target_dir/
+	target_dir/
 
-	├img1		(this is 1st reference)
+		├img1		(this is 1st reference)
 
-	├img2		(this is 1st target and 2nd reference)
+		├img2		(this is 1st target and 2nd reference)
 
-	├img3		...
+		├img3		...
 
-	├img4
+		├img4
 
-	└img5
+		└img5
 
 
 ## sequential pair
 
 Pair fixation. Files in Reference directory and Target directry will be fixed in order.
 
-reference_dir/
+	reference_dir/
 
-	├ref1		(this is 1st reference)
+		├ref1		(this is 1st reference)
 
-	├ref2		(2nd reference)
+		├ref2		(2nd reference)
 
-	├ref3		...
+		├ref3		...
 
-	├ref4
+		├ref4
 
-	└ref5
+		└ref5
 
-target_dir/
+	target_dir/
 
-	├tag1		(this is 1st target)
+		├tag1		(this is 1st target)
 
-	├tag2		(2nd target)
+		├tag2		(2nd target)
 
-	├tag3		...
+		├tag3		...
 
-	├tag4
+		├tag4
 
-	└tag5
+		└tag5
 
 Args
 ============
@@ -121,7 +132,7 @@ You should choice proper method as shape of object chozen properly.
 
 If selection is not proper, change method.
 
-See Autothresholdin documentation. https://imagej.net/Auto_Threshold
+See Autothreshold documentation. https://imagej.net/Auto_Threshold
 
 ## searchL
 
@@ -171,45 +182,43 @@ Genomes will be given evaluational values and the value is used to selection.
 
 ### process generation : 3
 
-processing generation.
+This number means times to make new generation.
 
-This number is times to make new generation.
+If your result is not fixed propery enough, make max population and process generation more large.
 
-If your result is not fixed propery enough, make max pop and proc gen more large.
-
-### encoding: real encoding(position x, y is int, and axis theta is double)
+### encoding: real encoding(position x, y is int, and slope theta is double)
 
 ### selection: ranking selection
 
 ### cross over: uniform cross over or random mix of parents' genes.
 
-progeny gene value is made from parents' genes.
+Progeny gene value is made from parents' genes.
 
-new value is random choice of parents'value(carry over) or random mixuture of ones.
+New value is random choice of parents'value(carry over) or random mixuture of ones.
 
-carry over rate is rate of chance of randome choice. if it is 0, new value will be completely random mixuture.
+Carry over rate is rate of chance of randome choice. if it is 0, new value will be completely random mixuture.
 
 ### mutation:
 
-mutation has two patterns.
+Mutation has two patterns.
 
-perturbation is small change.
+Perturbation is small change.
 
-this is adding below
+This is adding below to gene.
 
-nextGaussian()) / perturbation\_base * variable_range
+NextGaussian() / perturbation\_base * variable_range
 
-default perturbation base is 100.0
+Default perturbation base is 100.0
 
-catastroph is big change
+Catastroph is big change
 
-this is replace of randome new value.
+This is replace of randome new value.
 
 ### preserved parents rate
 
-parents with low evalation value will be removed in next generation.
+parents with high evalation value (they are not matched with reference) will be removed in next generation.
 
-this rate is decide parents preserved in next generation.
+This rate is decide parents preserved in next generation.
 
 If it is 0, all parents will be removed from next generation.
 
