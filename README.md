@@ -28,6 +28,15 @@ It require genericDialogPlus,and auto thresholding.
 
 Simply, use fiji and put this into fiji's plugin directory.
 
+For testing plugin, please use ref.png and tag.png.
+
+#### toy ref
+
+![ao no tori](https://github.com/fk506cni/position_fix/blob/master/ref.png)
+
+#### toy tag
+
+![aho no tori](https://github.com/fk506cni/position_fix/blob/master/tag.png)
 
 Process mode
 ============
